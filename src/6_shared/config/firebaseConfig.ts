@@ -16,21 +16,21 @@ const firebaseConfig = {
 // Firebase SDK 초기화
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
-let analytics = null;
+let analytics = null
 
 // analytics 배포 환경에서만 실행 되게 설정 : 로컬에선 작동 X
-if (import.meta.env.VITE_PRODUCTION_BASE_URL && typeof window !== "undefined") {
+if (import.meta.env.VITE_PRODUCTION_BASE_URL && typeof window !== 'undefined') {
   isSupported().then((supported) => {
     if (supported) {
-      analytics = getAnalytics(app);
+      analytics = getAnalytics(app)
     }
-  });
+  })
 }
 
 export { app, auth, analytics }
 
-/**  
+/**
  * CHECKLIST
  * - [ ] VITE_PRODUCTION_BASE_URL 추가 -> .env 환경변수
  * - [ ] 스트림 URL 설정 -> 애널리틱스 > 속성설정 > 데이터 수집 및 수정 > 데이터 스트림
- * */ 
+ * */
