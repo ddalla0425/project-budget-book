@@ -12,12 +12,18 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setTokenProvider(async () => {
       const user = auth.currentUser;
       if (!user) return null;
+      // console.log("토큰이 제대로 주입되고 있나? : ",await user.getIdToken());
+      
       return await user.getIdToken();
     });
 
     // 🔥 세션 동기화
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
+      if(user) {
+        setUser(user);
+        // console.log("user uid : ", user.uid)
+      }
+      
     });
 
     return () => unsubscribe();
