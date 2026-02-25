@@ -13,6 +13,7 @@
     "update-types": "pnpm dlx supabase gen types typescript --project-id rbhvxtjpdorvmgliczkj > src/6_shared/types/supabase.ts"
   },
   "dependencies": {
+    "@supabase/postgrest-js": "^2.97.0",
     "@supabase/supabase-js": "^2.97.0",
     "@tanstack/react-query": "^5.90.21",
     "axios": "^1.13.5",
