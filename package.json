@@ -9,9 +9,11 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "update-types": "pnpm dlx supabase gen types typescript --project-id rbhvxtjpdorvmgliczkj > src/6_shared/types/supabase.ts"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.97.0",
     "@tanstack/react-query": "^5.90.21",
     "axios": "^1.13.5",
     "firebase": "^12.9.0",
@@ -35,6 +37,7 @@
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
     "prettier": "^3.8.1",
+    "supabase": "^2.76.14",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.48.0",
     "vite": "^7.3.1"
