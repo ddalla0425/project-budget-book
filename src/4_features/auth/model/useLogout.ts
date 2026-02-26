@@ -1,17 +1,20 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { logoutApi } from '../api/logout'
+import { useUserStore } from '@/5_entities/user'
 
 export const useLogout = () => {
   const queryClient = useQueryClient()
+  const clearUser = useUserStore((s)=>(s.clearUser))
 
   return useMutation({
     mutationFn: logoutApi,
     onSuccess: () => {
-      console.log('로그아웃 성공!')
-      // 1. React Query 캐시 전체 삭제 (보안 및 데이터 초기화)
-      queryClient.clear()
 
-      // 2. 추가 보완: 필요 시 로그인 페이지로 리다이렉트
+      console.log('로그아웃 성공!')
+      queryClient.clear() // React Query 캐시 전체 삭제 (보안 및 데이터 초기화)
+      clearUser() // user 스토어 정보 삭제
+
+      // 추가 보완: 필요 시 로그인 페이지로 리다이렉트
       // window.location.replace('/login');
     },
     onError: (error) => {

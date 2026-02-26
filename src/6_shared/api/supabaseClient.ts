@@ -16,6 +16,7 @@ const fetchWithAuth = async (
   options?: FetchWithAuthOptions,
 ): Promise<Response> => {
   const token = await auth.currentUser?.getIdToken()
+  console.log('현재 요청 토큰 유무:', !!token)
   const headers = new Headers(options?.headers)
 
   if (token) headers.set('Authorization', `Bearer ${token}`)
@@ -25,6 +26,7 @@ const fetchWithAuth = async (
 
   // 401 처리 토큰 재발급 후 재요청
   if (response.status === 401 && !_retry) {
+    console.log('401 에러 발생: 토큰 갱신 후 재시도합니다.')
     const newToken = await auth.currentUser?.getIdToken(true)
     if (newToken) {
       headers.set('Authorization', `Bearer ${newToken}`)
