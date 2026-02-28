@@ -1,4 +1,4 @@
-import { useJoin } from '@/4_features/auth/model/useJoin'
+import { useJoin } from '@/4_features/auth'
 import { useUserStore } from '@/5_entities/user'
 
 // 회원가입과 로그인 로그아웃을 위한 테스트 위젯
