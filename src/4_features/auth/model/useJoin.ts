@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
-import { useUserStore } from '@/5_entities/user/model/userStore'
-import { useCreateUser, useGetUser } from '@/5_entities/user'
+import { useCreateUser, useGetUser, useUserStore } from '@/5_entities/user'
 
 export const useJoin = () => {
   const user = useUserStore((s) => s.user)

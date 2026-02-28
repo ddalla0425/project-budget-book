@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { userApi } from '../api/user.api'
-import type { TablesInsert } from '@/6_shared/types/supabase'
+import type { TablesInsert } from '@/6_shared/types'
 
 export const useGetUser = (userId?: string) => {
   return useQuery({

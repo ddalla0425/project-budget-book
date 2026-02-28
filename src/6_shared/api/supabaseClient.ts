@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
-import type { Database } from '@/6_shared/types/supabase'
-import { auth } from '@/6_shared/config/firebaseConfig'
+import type { Database } from '../types/supabase'
+import { auth } from '../config/firebaseConfig'
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_PROJECT_URL
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY

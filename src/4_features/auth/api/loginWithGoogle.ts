@@ -1,5 +1,5 @@
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from "@/6_shared/config/firebaseConfig";
+import { auth } from "@/6_shared/config";
 
 export const loginWithGoogle = async () => {
   const provider = new GoogleAuthProvider();

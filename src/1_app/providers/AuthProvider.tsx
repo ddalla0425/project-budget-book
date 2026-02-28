@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
-import { auth } from '@/6_shared/config/firebaseConfig'
-import { setTokenProvider } from '@/6_shared/api/auth-token-provider'
-import { useUserStore } from '@/5_entities/user/model/userStore'
+import { auth } from '@/6_shared/config'
+import { setTokenProvider } from '@/6_shared/api'
+import { useUserStore } from '@/5_entities/user' 
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const setUser = useUserStore((s) => s.setUser)

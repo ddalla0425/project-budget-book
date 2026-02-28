@@ -1,5 +1,5 @@
-import { supabase } from '@/6_shared/api/supabaseClient'
-import type { Tables, TablesInsert } from '@/6_shared/types/supabase'
+import { supabase } from '@/6_shared/api'
+import type { Tables, TablesInsert } from '@/6_shared/types'
 
 export const userApi = {
   // 유저 조회
