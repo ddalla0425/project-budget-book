@@ -6,17 +6,17 @@
  * -> 어차피 새로고침시 유저 정보 받아와서 스토어 채워주면, 굳이? 로컬스토리지랑 persist 사용할 이유가 없음 ㅎㅎ 안쓰는걸로 땅땅!
  * */
 
-import { create } from 'zustand'
-import type { User } from 'firebase/auth'
+import { create } from 'zustand';
+import type { User } from 'firebase/auth';
 
 interface UserState {
-  user: User | null
-  setUser: (user: User | null) => void
-  clearUser: () => void
+  user: User | null;
+  setUser: (user: User | null) => void;
+  clearUser: () => void;
 }
 
 export const useUserStore = create<UserState>((set) => ({
   user: null,
   setUser: (user) => set({ user }),
   clearUser: () => set({ user: null }),
-}))
+}));

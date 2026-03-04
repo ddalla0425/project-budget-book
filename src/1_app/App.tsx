@@ -1,17 +1,16 @@
-import '@/1_app/styles/App.css'
-import { AuthProvider } from './providers/AuthProvider'
-import { QueryClientProvider } from '@tanstack/react-query'
-import { queryClient } from '@/6_shared/lib/queyrClient'
-import { TestPage } from '@/2_pages/test/TestPage'
+import { GlobalStyle } from '@/1_app/styles';
+import { AppRouter } from '@/1_app/providers';
+import { Modal } from '@/6_shared/ui/modal';
+import 'swiper/bundle';
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <TestPage />
-      </AuthProvider>
-    </QueryClientProvider>
-  )
+    <>
+      <GlobalStyle />
+      <Modal />
+      <AppRouter />
+    </>
+  );
 }
 
-export default App
+export default App;

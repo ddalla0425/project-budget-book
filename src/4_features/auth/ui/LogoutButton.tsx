@@ -1,13 +1,14 @@
-import { useLogout } from '../model/useLogout'
+import { useLogout } from '../model/useLogout';
+import { Button } from '@/6_shared/ui/button';
 
 export const LogoutButton = () => {
-  const { mutate: logout, isPending } = useLogout()
+  const { mutate: logout, isPending } = useLogout();
 
   return (
     <>
-      <button onClick={() => logout()} disabled={isPending}>
+      <Button onClick={() => logout()} disabled={isPending}>
         Logout
-      </button>
+      </Button>
     </>
-  )
-}
+  );
+};
