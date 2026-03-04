@@ -1,4 +1,4 @@
-import { LoginButton } from '@/4_features/auth'; 
+import { LoginButton } from '@/4_features/auth';
 
 export const LoginPage = () => {
   return (

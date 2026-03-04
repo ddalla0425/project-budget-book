@@ -6,20 +6,9 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   fullWidth?: boolean;
 }
 
-export const Button = ({ 
-  variant = 'primary',
-  size = 'md', 
-  fullWidth = false,
-  children, 
-  ...props 
-}: ButtonProps) => {
+export const Button = ({ variant = 'primary', size = 'md', fullWidth = false, children, ...props }: ButtonProps) => {
   return (
-    <S.Button 
-      $variant={variant} 
-      $size={size} 
-      $fullWidth={fullWidth}
-      {...props}
-    >
+    <S.Button $variant={variant} $size={size} $fullWidth={fullWidth} {...props}>
       {children}
     </S.Button>
   );

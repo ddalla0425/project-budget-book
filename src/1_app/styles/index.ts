@@ -1,3 +1,3 @@
 // PUBLIC - app/styles
 
-export { GlobalStyle } from './GlobalStyle'
+export { GlobalStyle } from './GlobalStyle';

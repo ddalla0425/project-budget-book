@@ -1,3 +1,3 @@
 // PUBLIC - shared/config
 
-export { app, auth, analytics } from './firebaseConfig'
+export { app, auth, analytics } from './firebaseConfig';

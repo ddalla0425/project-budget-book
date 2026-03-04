@@ -1,3 +1,3 @@
 // PUBLIC - widgets/header
 
-export { Header } from './Header'
+export { Header } from './Header';

@@ -1,9 +1,9 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
 interface StyledButtonProps {
-  $variant: 'primary' | 'secondary' | 'danger'
-  $size: 'sm' | 'md' | 'lg'
-  $fullWidth: boolean
+  $variant: 'primary' | 'secondary' | 'danger';
+  $size: 'sm' | 'md' | 'lg';
+  $fullWidth: boolean;
 }
 
 const sizeStyles = {
@@ -19,7 +19,7 @@ const sizeStyles = {
     padding: 14px 24px;
     font-size: 16px;
   `,
-}
+};
 
 const variantStyles = {
   primary: css`
@@ -43,7 +43,7 @@ const variantStyles = {
       background-color: #c82333;
     }
   `,
-}
+};
 
 export const Button = styled.button<StyledButtonProps>`
   padding: 12px;
@@ -64,4 +64,4 @@ export const Button = styled.button<StyledButtonProps>`
     background-color: #ccc;
     cursor: not-allowed;
   }
-`
+`;

@@ -1,6 +1,6 @@
-import { initializeApp } from 'firebase/app'
-import { getAnalytics, isSupported } from 'firebase/analytics'
-import { getAuth } from 'firebase/auth'
+import { initializeApp } from 'firebase/app';
+import { getAnalytics, isSupported } from 'firebase/analytics';
+import { getAuth } from 'firebase/auth';
 // 참고 문서 : https://firebase.google.com/docs/web/setup#available-libraries
 
 const firebaseConfig = {
@@ -11,23 +11,23 @@ const firebaseConfig = {
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
-}
+};
 
 // Firebase SDK 초기화
-const app = initializeApp(firebaseConfig)
-const auth = getAuth(app)
-let analytics = null
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+let analytics = null;
 
 // analytics 배포 환경에서만 실행 되게 설정 : 로컬에선 작동 X
 if (import.meta.env.VITE_PRODUCTION_BASE_URL && typeof window !== 'undefined') {
   isSupported().then((supported) => {
     if (supported) {
-      analytics = getAnalytics(app)
+      analytics = getAnalytics(app);
     }
-  })
+  });
 }
 
-export { app, auth, analytics }
+export { app, auth, analytics };
 
 /**
  * CHECKLIST

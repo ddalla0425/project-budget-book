@@ -1,4 +1,4 @@
-import { QueryClient } from '@tanstack/react-query'
+import { QueryClient } from '@tanstack/react-query';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -13,7 +13,7 @@ export const queryClient = new QueryClient({
       retry: 1,
     },
   },
-})
+});
 
 // TODO : 리엑트 쿼리 버전 UP 시켜야 하는 이유가 있는가 고민 해보기
 /**

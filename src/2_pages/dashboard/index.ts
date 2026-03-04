@@ -1,3 +1,3 @@
 // PUBLIC - pages/dashboard
 
-export { DashboardPage } from './DashboardPage'
+export { DashboardPage } from './DashboardPage';
