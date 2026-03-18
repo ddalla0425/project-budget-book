@@ -1,6 +1,7 @@
 import type { TablesInsert } from '@/6_shared/types';
 import * as S from './AccountUI.style';
-import { ACCOUNT_TYPE_LABELS } from '@/6_shared/constants';
+import { ACCOUNT_TYPE_LABELS } from './../constants/financialInstitutions';
+import { formatCurrency } from '@/6_shared/lib';
 
 interface SummaryProps {
   data: TablesInsert<'accounts'>;
@@ -10,13 +11,9 @@ interface SummaryProps {
 }
 
 export const AccountSummary = ({ data, linkedBankName, onEdit, onRemove }: SummaryProps) => {
-  // 금액 포맷팅 (시니어의 디테일: 천단위 콤마)
-  const formattedAmount = new Intl.NumberFormat('ko-KR', {
-    style: 'currency',
-    currency: data.currency || 'KRW',
-  }).format(data.current_balance || 0);
-  console.log('실제 데이터 타입:', data.type);
-  const typeLabel = ACCOUNT_TYPE_LABELS[data.type] || data.type;
+  if (!data) return null;
+  const formattedAmount = formatCurrency(data.current_balance);
+  const typeLabel = ACCOUNT_TYPE_LABELS[data.type as keyof typeof ACCOUNT_TYPE_LABELS] || data.type;
 
   return (
     <S.SummaryWrapper>
