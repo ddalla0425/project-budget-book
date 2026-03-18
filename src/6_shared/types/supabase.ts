@@ -8,56 +8,574 @@ export type Database = {
   };
   public: {
     Tables: {
+      account_bank_details: {
+        Row: {
+          account_id: string;
+          account_number: string | null;
+          deposit_rate: number | null;
+          interest_cycle: string | null;
+          interest_settlement_day: number | null;
+          is_main_account: boolean | null;
+          loan_rate: number | null;
+          user_id: string;
+        };
+        Insert: {
+          account_id: string;
+          account_number?: string | null;
+          deposit_rate?: number | null;
+          interest_cycle?: string | null;
+          interest_settlement_day?: number | null;
+          is_main_account?: boolean | null;
+          loan_rate?: number | null;
+          user_id: string;
+        };
+        Update: {
+          account_id?: string;
+          account_number?: string | null;
+          deposit_rate?: number | null;
+          interest_cycle?: string | null;
+          interest_settlement_day?: number | null;
+          is_main_account?: boolean | null;
+          loan_rate?: number | null;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'account_bank_details_account_id_fkey';
+            columns: ['account_id'];
+            isOneToOne: true;
+            referencedRelation: 'accounts';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'account_bank_details_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'fk_bank_account_user';
+            columns: ['account_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'accounts';
+            referencedColumns: ['id', 'user_id'];
+          },
+        ];
+      };
+      account_card_details: {
+        Row: {
+          account_id: string;
+          billing_day: number | null;
+          end_day: number;
+          end_month_offset: number;
+          start_day: number;
+          start_month_offset: number;
+          user_id: string | null;
+        };
+        Insert: {
+          account_id: string;
+          billing_day?: number | null;
+          end_day: number;
+          end_month_offset: number;
+          start_day: number;
+          start_month_offset: number;
+          user_id?: string | null;
+        };
+        Update: {
+          account_id?: string;
+          billing_day?: number | null;
+          end_day?: number;
+          end_month_offset?: number;
+          start_day?: number;
+          start_month_offset?: number;
+          user_id?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'account_card_details_account_id_fkey';
+            columns: ['account_id'];
+            isOneToOne: true;
+            referencedRelation: 'accounts';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'account_card_details_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'fk_card_account_user';
+            columns: ['account_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'accounts';
+            referencedColumns: ['id', 'user_id'];
+          },
+        ];
+      };
+      account_cash_details: {
+        Row: {
+          account_id: string;
+          cash_type: string;
+          created_at: string | null;
+          deleted_at: string | null;
+          denomination: number;
+          id: string;
+          quantity: number;
+          updated_at: string | null;
+          user_id: string;
+        };
+        Insert: {
+          account_id: string;
+          cash_type: string;
+          created_at?: string | null;
+          deleted_at?: string | null;
+          denomination: number;
+          id?: string;
+          quantity?: number;
+          updated_at?: string | null;
+          user_id: string;
+        };
+        Update: {
+          account_id?: string;
+          cash_type?: string;
+          created_at?: string | null;
+          deleted_at?: string | null;
+          denomination?: number;
+          id?: string;
+          quantity?: number;
+          updated_at?: string | null;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'account_cash_details_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'cash_details_account_id_fkey';
+            columns: ['account_id'];
+            isOneToOne: false;
+            referencedRelation: 'accounts';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      account_debt_details: {
+        Row: {
+          account_id: string | null;
+          created_at: string | null;
+          debt_source: string | null;
+          debt_type: string | null;
+          deleted_at: string | null;
+          expiry_date: string | null;
+          id: string;
+          institution_id: string | null;
+          interest_rate: number | null;
+          name: string;
+          remaining_amount: number;
+          repayment_day: number | null;
+          start_date: string | null;
+          status: string | null;
+          total_principal: number;
+          updated_at: string | null;
+          user_id: string;
+        };
+        Insert: {
+          account_id?: string | null;
+          created_at?: string | null;
+          debt_source?: string | null;
+          debt_type?: string | null;
+          deleted_at?: string | null;
+          expiry_date?: string | null;
+          id?: string;
+          institution_id?: string | null;
+          interest_rate?: number | null;
+          name: string;
+          remaining_amount: number;
+          repayment_day?: number | null;
+          start_date?: string | null;
+          status?: string | null;
+          total_principal: number;
+          updated_at?: string | null;
+          user_id: string;
+        };
+        Update: {
+          account_id?: string | null;
+          created_at?: string | null;
+          debt_source?: string | null;
+          debt_type?: string | null;
+          deleted_at?: string | null;
+          expiry_date?: string | null;
+          id?: string;
+          institution_id?: string | null;
+          interest_rate?: number | null;
+          name?: string;
+          remaining_amount?: number;
+          repayment_day?: number | null;
+          start_date?: string | null;
+          status?: string | null;
+          total_principal?: number;
+          updated_at?: string | null;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'account_debt_details_institution_id_fkey';
+            columns: ['institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'financial_institutions';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'fk_account_debt_details_accounts';
+            columns: ['account_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'accounts';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'fk_account_debt_details_users';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      account_insurance_details: {
+        Row: {
+          account_id: string;
+          estimated_refund_amount: number | null;
+          interest_rate: number | null;
+          is_refundable: boolean | null;
+          premium_amount: number | null;
+          status: string | null;
+          user_id: string;
+        };
+        Insert: {
+          account_id: string;
+          estimated_refund_amount?: number | null;
+          interest_rate?: number | null;
+          is_refundable?: boolean | null;
+          premium_amount?: number | null;
+          status?: string | null;
+          user_id: string;
+        };
+        Update: {
+          account_id?: string;
+          estimated_refund_amount?: number | null;
+          interest_rate?: number | null;
+          is_refundable?: boolean | null;
+          premium_amount?: number | null;
+          status?: string | null;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'account_insurance_details_account_id_fkey';
+            columns: ['account_id'];
+            isOneToOne: true;
+            referencedRelation: 'accounts';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'account_insurance_details_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'fk_insurance_account_user';
+            columns: ['account_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'accounts';
+            referencedColumns: ['id', 'user_id'];
+          },
+        ];
+      };
+      account_investment_details: {
+        Row: {
+          account_id: string;
+          average_buy_price: number | null;
+          last_market_price: number | null;
+          ticker_symbol: string | null;
+          total_quantity: number | null;
+          user_id: string;
+        };
+        Insert: {
+          account_id: string;
+          average_buy_price?: number | null;
+          last_market_price?: number | null;
+          ticker_symbol?: string | null;
+          total_quantity?: number | null;
+          user_id: string;
+        };
+        Update: {
+          account_id?: string;
+          average_buy_price?: number | null;
+          last_market_price?: number | null;
+          ticker_symbol?: string | null;
+          total_quantity?: number | null;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'account_investment_details_account_id_fkey';
+            columns: ['account_id'];
+            isOneToOne: true;
+            referencedRelation: 'accounts';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'account_investment_details_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'fk_invest_account_user';
+            columns: ['account_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'accounts';
+            referencedColumns: ['id', 'user_id'];
+          },
+        ];
+      };
+      account_pay_details: {
+        Row: {
+          account_id: string;
+          is_auto_rechargeable: boolean | null;
+          linked_point_account_id: string | null;
+          recharge_unit_amount: number | null;
+          user_id: string | null;
+        };
+        Insert: {
+          account_id: string;
+          is_auto_rechargeable?: boolean | null;
+          linked_point_account_id?: string | null;
+          recharge_unit_amount?: number | null;
+          user_id?: string | null;
+        };
+        Update: {
+          account_id?: string;
+          is_auto_rechargeable?: boolean | null;
+          linked_point_account_id?: string | null;
+          recharge_unit_amount?: number | null;
+          user_id?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'account_pay_details_account_id_fkey';
+            columns: ['account_id'];
+            isOneToOne: true;
+            referencedRelation: 'accounts';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'account_pay_details_linked_point_account_id_fkey';
+            columns: ['linked_point_account_id'];
+            isOneToOne: false;
+            referencedRelation: 'accounts';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'account_pay_details_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'fk_pay_account_user';
+            columns: ['account_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'accounts';
+            referencedColumns: ['id', 'user_id'];
+          },
+        ];
+      };
+      account_saving_details: {
+        Row: {
+          account_id: string;
+          interest_rate: number | null;
+          is_installment: boolean | null;
+          linked_payout_account_id: string | null;
+          maturity_date: string | null;
+          status: string | null;
+          user_id: string;
+        };
+        Insert: {
+          account_id: string;
+          interest_rate?: number | null;
+          is_installment?: boolean | null;
+          linked_payout_account_id?: string | null;
+          maturity_date?: string | null;
+          status?: string | null;
+          user_id: string;
+        };
+        Update: {
+          account_id?: string;
+          interest_rate?: number | null;
+          is_installment?: boolean | null;
+          linked_payout_account_id?: string | null;
+          maturity_date?: string | null;
+          status?: string | null;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'fk_account_saving_details_accounts';
+            columns: ['account_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'accounts';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'fk_account_saving_details_payout';
+            columns: ['linked_payout_account_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'accounts';
+            referencedColumns: ['id', 'user_id'];
+          },
+        ];
+      };
+      account_voucher_details: {
+        Row: {
+          account_id: string;
+          created_at: string | null;
+          deleted_at: string | null;
+          denomination: number;
+          expiry_date: string | null;
+          id: string;
+          is_used: boolean | null;
+          quantity: number;
+          updated_at: string | null;
+          user_id: string;
+          voucher_name: string;
+        };
+        Insert: {
+          account_id: string;
+          created_at?: string | null;
+          deleted_at?: string | null;
+          denomination: number;
+          expiry_date?: string | null;
+          id?: string;
+          is_used?: boolean | null;
+          quantity?: number;
+          updated_at?: string | null;
+          user_id: string;
+          voucher_name: string;
+        };
+        Update: {
+          account_id?: string;
+          created_at?: string | null;
+          deleted_at?: string | null;
+          denomination?: number;
+          expiry_date?: string | null;
+          id?: string;
+          is_used?: boolean | null;
+          quantity?: number;
+          updated_at?: string | null;
+          user_id?: string;
+          voucher_name?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'account_voucher_details_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'asset_vouchers_account_id_fkey';
+            columns: ['account_id'];
+            isOneToOne: false;
+            referencedRelation: 'accounts';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       accounts: {
         Row: {
-          billing_day: number | null;
-          closing_day: number | null;
+          amount_limit: number;
+          balance_type: string | null;
           created_at: string;
           currency: string;
           current_balance: number;
           deleted_at: string | null;
+          description: string | null;
+          expiry_date: string | null;
           id: string;
+          institution_id: string | null;
           is_active: boolean;
+          limit_remaining: number | null;
           linked_account_id: string | null;
           name: string;
+          provider: string;
           source: string;
           type: string;
           updated_at: string;
           user_id: string;
         };
         Insert: {
-          billing_day?: number | null;
-          closing_day?: number | null;
+          amount_limit?: number;
+          balance_type?: string | null;
           created_at?: string;
           currency?: string;
           current_balance?: number;
           deleted_at?: string | null;
+          description?: string | null;
+          expiry_date?: string | null;
           id?: string;
+          institution_id?: string | null;
           is_active?: boolean;
+          limit_remaining?: number | null;
           linked_account_id?: string | null;
           name: string;
-          source: string;
+          provider: string;
+          source?: string;
           type: string;
           updated_at?: string;
           user_id: string;
         };
         Update: {
-          billing_day?: number | null;
-          closing_day?: number | null;
+          amount_limit?: number;
+          balance_type?: string | null;
           created_at?: string;
           currency?: string;
           current_balance?: number;
           deleted_at?: string | null;
+          description?: string | null;
+          expiry_date?: string | null;
           id?: string;
+          institution_id?: string | null;
           is_active?: boolean;
+          limit_remaining?: number | null;
           linked_account_id?: string | null;
           name?: string;
-          source: string;
+          provider?: string;
+          source?: string;
           type?: string;
           updated_at?: string;
           user_id?: string;
         };
         Relationships: [
+          {
+            foreignKeyName: 'accounts_institution_id_fkey';
+            columns: ['institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'financial_institutions';
+            referencedColumns: ['id'];
+          },
           {
             foreignKeyName: 'accounts_user_id_fkey';
             columns: ['user_id'];
@@ -77,6 +595,50 @@ export type Database = {
             columns: ['user_id'];
             isOneToOne: false;
             referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      card_billing_standards: {
+        Row: {
+          billing_day: number;
+          created_at: string | null;
+          end_day: number;
+          end_month_offset: number;
+          id: string;
+          institution_id: string | null;
+          start_day: number;
+          start_month_offset: number;
+          updated_at: string | null;
+        };
+        Insert: {
+          billing_day: number;
+          created_at?: string | null;
+          end_day: number;
+          end_month_offset: number;
+          id?: string;
+          institution_id?: string | null;
+          start_day: number;
+          start_month_offset: number;
+          updated_at?: string | null;
+        };
+        Update: {
+          billing_day?: number;
+          created_at?: string | null;
+          end_day?: number;
+          end_month_offset?: number;
+          id?: string;
+          institution_id?: string | null;
+          start_day?: number;
+          start_month_offset?: number;
+          updated_at?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'card_billing_standards_institution_id_fkey';
+            columns: ['institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'financial_institutions';
             referencedColumns: ['id'];
           },
         ];
@@ -133,6 +695,45 @@ export type Database = {
             referencedColumns: ['id'];
           },
         ];
+      };
+      financial_institutions: {
+        Row: {
+          code: string;
+          created_at: string | null;
+          id: string;
+          is_active: boolean | null;
+          is_popular: boolean | null;
+          logo_url: string | null;
+          name: string;
+          priority_score: number | null;
+          type: string;
+          updated_at: string | null;
+        };
+        Insert: {
+          code: string;
+          created_at?: string | null;
+          id?: string;
+          is_active?: boolean | null;
+          is_popular?: boolean | null;
+          logo_url?: string | null;
+          name: string;
+          priority_score?: number | null;
+          type: string;
+          updated_at?: string | null;
+        };
+        Update: {
+          code?: string;
+          created_at?: string | null;
+          id?: string;
+          is_active?: boolean | null;
+          is_popular?: boolean | null;
+          logo_url?: string | null;
+          name?: string;
+          priority_score?: number | null;
+          type?: string;
+          updated_at?: string | null;
+        };
+        Relationships: [];
       };
       recurrence_rules: {
         Row: {
@@ -333,7 +934,9 @@ export type Database = {
           deleted_at: string | null;
           direction: string;
           id: string;
+          is_pending: boolean | null;
           memo: string | null;
+          parent_transaction_id: string | null;
           recurring_expense_id: string | null;
           settlement_date: string | null;
           transaction_date: string;
@@ -351,7 +954,9 @@ export type Database = {
           deleted_at?: string | null;
           direction: string;
           id?: string;
+          is_pending?: boolean | null;
           memo?: string | null;
+          parent_transaction_id?: string | null;
           recurring_expense_id?: string | null;
           settlement_date?: string | null;
           transaction_date: string;
@@ -369,7 +974,9 @@ export type Database = {
           deleted_at?: string | null;
           direction?: string;
           id?: string;
+          is_pending?: boolean | null;
           memo?: string | null;
+          parent_transaction_id?: string | null;
           recurring_expense_id?: string | null;
           settlement_date?: string | null;
           transaction_date?: string;
@@ -393,6 +1000,13 @@ export type Database = {
             isOneToOne: false;
             referencedRelation: 'user_categories';
             referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'fk_transactions_parent';
+            columns: ['parent_transaction_id'];
+            isOneToOne: false;
+            referencedRelation: 'transactions';
+            referencedColumns: ['id'];
           },
           {
             foreignKeyName: 'fk_transactions_recurring_same_user';
@@ -530,7 +1144,49 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      create_account_with_details:
+        | {
+            Args: {
+              p_amount_limit?: number;
+              p_balance_type?: string;
+              p_currency?: string;
+              p_current_balance?: number;
+              p_description?: string;
+              p_detail?: Json;
+              p_expiry_date?: string;
+              p_is_active?: boolean;
+              p_limit_remaining?: number;
+              p_linked_account_id?: string;
+              p_name: string;
+              p_provider?: string;
+              p_source?: string;
+              p_type: string;
+            };
+            Returns: Json;
+          }
+        | {
+            Args: {
+              p_amount_limit?: number;
+              p_balance_type?: string;
+              p_currency?: string;
+              p_current_balance?: number;
+              p_description?: string;
+              p_detail?: Json;
+              p_expiry_date?: string;
+              p_institution_id?: string;
+              p_is_active?: boolean;
+              p_limit_remaining?: number;
+              p_linked_account_id?: string;
+              p_name: string;
+              p_provider?: string;
+              p_source?: string;
+              p_type: string;
+            };
+            Returns: Json;
+          };
+      get_financial_institutions: { Args: never; Returns: Json };
+      get_user_account_dashboard: { Args: never; Returns: Json };
+      get_user_account_dashboard_v2: { Args: never; Returns: Json };
     };
     Enums: {
       [_ in never]: never;
