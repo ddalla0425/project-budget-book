@@ -17,7 +17,7 @@ const fetchWithAuth = async (url: string | URL | Request, options?: FetchWithAut
   const headers = new Headers(options?.headers);
 
   if (token) headers.set('Authorization', `Bearer ${token}`);
-
+  console.log('현재 헤더 : ', headers);
   const { _retry, ...restOptions } = options || {}; // fetch 가 모르는 속성(_retry)제외 후 전달
   const response = await fetch(url, { ...restOptions, headers });
 

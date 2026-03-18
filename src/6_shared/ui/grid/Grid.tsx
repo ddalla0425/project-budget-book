@@ -22,7 +22,15 @@ export const Grid = ({
   ...rest
 }: GridProps) => {
   return (
-    <S.Grid $gap={gap} $width={width} $height={height} $autoCols={autoCols} $direction={direction} $align={align} {...rest}>
+    <S.Grid
+      $gap={gap}
+      $width={width}
+      $height={height}
+      $autoCols={autoCols}
+      $direction={direction}
+      $align={align}
+      {...rest}
+    >
       {children}
     </S.Grid>
   );

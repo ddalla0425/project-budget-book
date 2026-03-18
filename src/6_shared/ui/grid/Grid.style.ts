@@ -16,29 +16,32 @@ export const Grid = styled.div<StyledGridProps>`
   align-items: ${({ $align = 'stretch' }) => $align};
 
   /* 세로 등분 모드일 때 전달받은 height 적용 */
-  ${({ $direction, $height }) => 
-    $direction === 'vertical' && $height && css`
+  ${({ $direction, $height }) =>
+    $direction === 'vertical' &&
+    $height &&
+    css`
       height: ${$height};
-    `
-  }
+    `}
 
   /* $autoCols가 true면 자식들이 무조건 같은 비율로 한 줄에 배치됨 */
   ${({ $autoCols, $direction }) =>
     $autoCols &&
     ($direction === 'horizontal'
       ? css`
-          grid-auto-flow: column;   /* 가로로 나열 */
-          grid-auto-columns: 1fr;  /* 자식 수만큼 가로 등분 */
+          grid-auto-flow: column; /* 가로로 나열 */
+          grid-auto-columns: 1fr; /* 자식 수만큼 가로 등분 */
         `
       : css`
-          grid-auto-flow: row;      /* 세로로 나열 */
-          grid-auto-rows: 1fr;     /* 자식 수만큼 세로 등분 */
+          grid-auto-flow: row; /* 세로로 나열 */
+          grid-auto-rows: 1fr; /* 자식 수만큼 세로 등분 */
         `)}
 
   /* autoCols가 false일 때의 기본 동작 */
-  ${({ $autoCols }) => !$autoCols && css`
-    grid-template-columns: 1fr;
-  `}
+  ${({ $autoCols }) =>
+    !$autoCols &&
+    css`
+      grid-template-columns: 1fr;
+    `}
 
   /* 공통 반응형 설정 (태블릿/모바일) */
   @media (max-width: 768px) {

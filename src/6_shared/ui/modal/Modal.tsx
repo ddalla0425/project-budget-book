@@ -9,7 +9,7 @@ export const Modal = () => {
   const { isOpen, slides, closeModal } = useModalStore();
   const [swiper, setSwiper] = useState<SwiperClass | null>(null);
   const [paginationEl, setPaginationEl] = useState<HTMLDivElement | null>(null);
-  console.log('slides 데이터:', slides);
+  // console.log('slides 데이터:', slides);
   // 모달이 열리면 스크롤 방지, 닫히면 해제
   useEffect(() => {
     if (isOpen) {
