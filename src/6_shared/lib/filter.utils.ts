@@ -20,7 +20,7 @@ interface FilterValue<V> {
 /** @description 데이터 모델 T에 대한 필터 조건 객체 타입
  * 각 키는 T의 속성명이며, 값은 단일 값, 배열, 또는 FilterValue 객체일 수 있음
  */
-type FilterCondition<T> = {
+export type FilterCondition<T> = {
   [K in keyof T]?: T[K] | T[K][] | FilterValue<T[K]>;
 };
 
@@ -65,10 +65,6 @@ export const filterData = <T>(data: T[] | undefined, filters: FilterCondition<T>
       switch (operator) {
         case 'BETWEEN': // [시작일, 종료일] 형태의 배열을 받음
           if (Array.isArray(value) && value.length === 2) {
-            // const start = new Date(value[0] as string | number).getTime()
-            // const end = new Date(value[1] as string | number).getTime()
-            // const current = new Date(itemValue as string | number).getTime()
-            // return current >= start && current <= end
             const start = toSafeDate(value[0]);
             const end = toSafeDate(value[1]);
             const current = toSafeDate(itemValue);
