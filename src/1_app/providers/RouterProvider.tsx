@@ -40,7 +40,7 @@ export const AppRouter = () => {
           path: '/account',
           children: [
             {
-              path: 'list',
+              index: true,
               element: user ? <AccountListPage /> : <Navigate to="/login" replace />,
             },
             {
