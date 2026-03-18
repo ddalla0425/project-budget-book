@@ -1,4 +1,4 @@
-import type { AccountFormState } from '../model/form.store';
+import type { AccountFormState } from '../model/store';
 import type {
   AccountInsertType,
   BankDetailInsert,
