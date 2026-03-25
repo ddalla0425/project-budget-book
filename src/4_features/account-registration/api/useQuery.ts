@@ -10,6 +10,7 @@ export const useCreateAccount = (userId?: string) => {
     onSuccess: () => {
       // 저장 성공 시 'accounts' 키를 가진 쿼리를 무효화하여 새로고침
       queryClient.invalidateQueries({ queryKey: ['accounts', userId] });
+      queryClient.invalidateQueries({ queryKey: ['account-dashboard', userId] });
     },
     onError: (error) => {
       alert(`저장시 에러 :  ,${error}`);

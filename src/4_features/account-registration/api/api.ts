@@ -1,6 +1,7 @@
 import { supabase } from '@/6_shared/api';
 import type { AccountSaveType } from '@/5_entities/account';
 import type { AccountRpcResult } from '@/5_entities/account';
+import type { Json } from '@/6_shared/types/supabase';
 
 export const accountFormApi = {
   // 자산 저장
@@ -31,6 +32,12 @@ export const accountFormApi = {
 
   // 자산 일괄 저장
   createAccountsBulk: async (accounts: AccountSaveType[]): Promise<AccountRpcResult[]> => {
-    return Promise.all(accounts.map((acc) => accountFormApi.createAccount(acc)));
+    // return Promise.all(accounts.map((acc) => accountFormApi.createAccount(acc)));
+    const { data, error } = await supabase.rpc('create_accounts_bulk', {
+      input_data: accounts as unknown as Json, // 배열 자체를 JSON 형태로 넘김
+    });
+
+    if (error) throw error;
+    return data as unknown as AccountRpcResult[];
   },
 };
