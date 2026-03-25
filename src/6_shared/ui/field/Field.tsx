@@ -9,6 +9,7 @@ interface ChildProps {
 
 interface FieldProps extends React.HTMLAttributes<HTMLDivElement> {
   label?: string;
+  labelTag?: 'label' | 'span';
   error?: string; // 에러 메시지 내용
   description?: string;
   children: React.ReactElement; // cloneElement를 위해 ReactNode 대신 ReactElement 권장
@@ -19,6 +20,7 @@ interface FieldProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const Field = ({
   label,
+  labelTag = 'label',
   error,
   description,
   children,
@@ -30,11 +32,12 @@ export const Field = ({
   const currentVariant = error ? 'danger' : variant;
   const generatedId = useId();
   const targetId = (children.props as ChildProps).id || generatedId;
+  const isLabel = labelTag === 'label';
 
   return (
     <S.Field $deviceSize={deviceSize} $variant={variant} {...rest}>
       {label && (
-        <S.Label>
+        <S.Label as={labelTag} htmlFor={isLabel ? targetId : undefined}>
           {label}
           {required && <S.RequiredMark>*</S.RequiredMark>}
         </S.Label>
@@ -42,11 +45,16 @@ export const Field = ({
 
       {/* 실제 Input이나 Select가 위치할 자리 */}
       <S.ControlWrapper>
-        {React.cloneElement(children, {
-          id: targetId,
-          $variant: currentVariant,
-          $deviceSize: deviceSize,
-        } as ChildProps)}
+        {React.isValidElement(children)
+          ? React.cloneElement(children, {
+              id: targetId,
+              // 자식이 string(예: 'input', 'button')이 아닐 때만 프롭 주입
+              ...(typeof children.type !== 'string' && {
+                $variant: currentVariant,
+                $deviceSize: deviceSize,
+              }),
+            } as ChildProps)
+          : children}
       </S.ControlWrapper>
 
       {error ? (
