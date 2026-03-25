@@ -41,9 +41,10 @@ export const Alert = styled.div<StyledAlertProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-  backgroundcolor: #fff4f4;
+  background-color: #fff4f4;
   border: 1px solid #ffcccc;
-  borderradius: 6px;
+  border-radius: 6px;
+  white-space: pre-wrap;
 
   ${({ $deviceSize = 'md' }) => sizeStyles[$deviceSize]}
   ${({ $variant }) => variantStyles[$variant]}

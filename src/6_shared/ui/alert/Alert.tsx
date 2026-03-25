@@ -10,13 +10,14 @@ interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
 export const Alert = ({
   variant = 'primary',
   deviceSize = 'md',
-  fullWidth = false,
+  fullWidth = true,
+  message,
   children,
   ...props
 }: AlertProps) => {
   return (
     <S.Alert $variant={variant} $deviceSize={deviceSize} $fullWidth={fullWidth} {...props}>
-      {children}
+      {message || children}
     </S.Alert>
   );
 };
