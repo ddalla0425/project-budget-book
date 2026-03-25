@@ -50,9 +50,42 @@ export const Input = styled.input<StyledInputProps>`
   transition: all 0.2s ease-in-out;
   box-sizing: border-box;
 
-  ${({ $deviceSize = 'md' }) => sizeStyles[$deviceSize]}
-  ${({ $variant = 'primary' }) => variantStyles[$variant]}
-  width: 100%;
+  ${({ $deviceSize = 'md' }) => sizeStyles[$deviceSize]} ${({ $variant = 'primary' }) =>
+    variantStyles[$variant]} width: 100%;
+
+  ${({ type }) =>
+    type === 'number' &&
+    css`
+      -moz-appearance: textfield;
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+      }
+    `};
+
+  ${({ type }) =>
+    type === 'checkbox' &&
+    css`
+      padding: 0;
+      cursor: pointer;
+      border: none;
+      box-shadow: none;
+      align-self: center;
+    `};
+
+  ${({ type }) =>
+    type === 'date' &&
+    css`
+      font-size: 0.875rem;
+      letter-spacing: -0.1rem;
+      &::-webkit-calendar-picker-indicator {
+        cursor: pointer;
+        opacity: 0.6;
+        &:hover {
+          opacity: 1;
+        }
+      }
+    `};
 
   &:disabled {
     background-color: #f5f5f5;
