@@ -6,6 +6,7 @@ interface StyledGridProps {
   $height: string;
   $align?: string;
   $autoCols?: boolean;
+  $selectCols?: string;
   $direction: 'horizontal' | 'vertical';
 }
 
@@ -15,40 +16,43 @@ export const Grid = styled.div<StyledGridProps>`
   gap: ${({ $gap }) => `${$gap}px`};
   align-items: ${({ $align = 'stretch' }) => $align};
 
-  /* 세로 등분 모드일 때 전달받은 height 적용 */
-  ${({ $direction, $height }) =>
-    $direction === 'vertical' &&
-    $height &&
-    css`
-      height: ${$height};
-    `}
+  /* 방향 및 레이아웃 설정 */
+  ${({ $direction, $height, $autoCols, $selectCols }) => {
+    if ($direction === 'vertical') {
+      return css`
+        height: ${$height};
+        grid-auto-flow: row;
+        ${$autoCols &&
+        css`
+          grid-auto-rows: 1fr;
+        `};
+      `;
+    }
 
-  /* $autoCols가 true면 자식들이 무조건 같은 비율로 한 줄에 배치됨 */
-  ${({ $autoCols, $direction }) =>
-    $autoCols &&
-    ($direction === 'horizontal'
-      ? css`
-          grid-auto-flow: column; /* 가로로 나열 */
-          grid-auto-columns: 1fr; /* 자식 수만큼 가로 등분 */
-        `
-      : css`
-          grid-auto-flow: row; /* 세로로 나열 */
-          grid-auto-rows: 1fr; /* 자식 수만큼 세로 등분 */
-        `)}
-
-  /* autoCols가 false일 때의 기본 동작 */
-  ${({ $autoCols }) =>
-    !$autoCols &&
-    css`
-      grid-template-columns: 1fr;
-    `}
-
-  /* 공통 반응형 설정 (태블릿/모바일) */
-  @media (max-width: 768px) {
-    grid-auto-flow: row; /* 모바일에서는 자동으로 세로로 흐르게 변경 */
-    grid-template-columns: 1fr;
-    grid-auto-rows: auto; /* 모바일에서는 등분 해제하고 콘텐츠만큼 차지하게 */
-    height: auto !important; /* 모바일에서는 고정 높이 해제 */
-    width: 100% !important; /* 모바일은 웬만하면 꽉 차게 */
+    // 가로(horizontal) 모드일 때
+    return css`
+      /* 1순위: selectCols가 있으면 해당 그리드 템플릿 사용 */
+      ${$selectCols
+        ? css`
+            grid-template-columns: ${$selectCols};
+          `
+        : $autoCols
+          ? css`
+              /* 2순위: autoCols가 true면 자식 수만큼 자동 등분 */
+              grid-auto-flow: column;
+              grid-auto-columns: 1fr;
+            `
+          : css`
+              /* 3순위: 둘 다 없으면 기본 1열 배치 */
+              grid-template-columns: 1fr;
+            `};
+    `;
+  }} /* 공통 반응형 설정 (태블릿/모바일) */ @media (max-width:
+    768px) {
+    grid-auto-flow: row;
+    grid-template-columns: 1fr !important; /* 명시적 지정 해제 */
+    grid-auto-rows: auto;
+    height: auto !important;
+    width: 100% !important;
   }
 `;
