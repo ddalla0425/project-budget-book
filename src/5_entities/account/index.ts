@@ -8,7 +8,8 @@ export { AccountTotal } from './ui/AccountTotal';
 export { AccountQueueItem } from './ui/AccountQueueItem';
 
 // constant 노출
-export { ACCOUNT_TYPE_LABELS, FINANCIAL_INSTITUTIONS } from './constants/financialInstitutions';
+export { ACCOUNT_TYPE_LABELS, DEBT_TYPE_LABELS, INSTITUTION_TYPE_LABEL } from './constants/typeLabel';
+export { DEBT_SOURCE_PLACEHOLDERS, DEBT_TYPE_MAPPING } from './constants/mapping';
 
 // lib 노출
 export { mapAccountRelations } from './lib/utils';

@@ -18,7 +18,7 @@ export const transformRawAccount = (raw: RawAccountResponse): AccountListType =>
         ...common,
         type: 'CASH',
         details: raw.account_cash_details || [],
-        bankNoteType: 0, 
+        bankNoteType: 0,
       } as AccountListType;
 
     case 'BANK':
@@ -130,6 +130,8 @@ export const mapAccountRelations = (relations: AccountRelation[]): AccountRelati
     cardToBank: {},
     bankToCards: {},
     payToPoint: {},
+    pointToPay: {},
+    giftCardToTarget: {},
     debtToAsset: {},
   };
 
@@ -144,7 +146,7 @@ export const mapAccountRelations = (relations: AccountRelation[]): AccountRelati
     // 데이터가 없을시 (방어 코드)
     if (!sourceAccount?.id || !targetAccount?.id) {
       console.warn('⚠️ 연결할 계좌 정보가 부족함 (Skip):', rel);
-      return; 
+      return;
     }
 
     const sourceId = sourceAccount.id;
@@ -170,8 +172,30 @@ export const mapAccountRelations = (relations: AccountRelation[]): AccountRelati
     }
 
     // 페이 -> 포인트 (PAY_POINT_LINK)
+    // if (rel_type === 'PAY_POINT_LINK') {
+    //   maps.payToPoint[sourceId] = targetAccount;
+    // }
+
+    // 🌟 2. 페이 <-> 포인트 1:1 양방향 매핑 (PAY_POINT_LINK)
+    // DB에 PAY_POINT_LINK 하나만 저장되어 있어도, UI에서는 양쪽에서 다 찾을 수 있게 해줍니다!
     if (rel_type === 'PAY_POINT_LINK') {
-      maps.payToPoint[sourceId] = targetAccount;
+      // source가 페이, target이 포인트일 경우
+      if (sourceAccount.type === 'PAY') {
+        maps.payToPoint[sourceId] = targetAccount as AccountListType;
+        maps.pointToPay[targetId] = sourceAccount as AccountListType;
+      }
+      // 만약 DB에 반대로 (source가 포인트) 저장되었을 경우를 대비한 방어 로직
+      else if (sourceAccount.type === 'POINT') {
+        maps.pointToPay[sourceId] = targetAccount as AccountListType;
+        maps.payToPoint[targetId] = sourceAccount as AccountListType;
+      }
+    }
+
+    // 🌟 3. 상품권 -> 페이/포인트 전환 매핑
+    // 유저님이 제안하신 2개 타입(GIFT_CARD_PAY_LINK, GIFT_CARD_POINT_LINK)을 모두 수용합니다.
+    if (rel_type === 'VOUCHER_CONVERT_LINK') {
+      // 상품권의 ID를 키로, 타겟(페이/포인트) 객체를 값으로 저장
+      maps.giftCardToTarget[sourceId] = targetAccount as AccountListType;
     }
 
     // 대출 -> 담보자산 (DEBT_ACCOUNT_LINK)

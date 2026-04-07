@@ -121,7 +121,9 @@ export interface AccountState {
 export interface AccountRelations {
   cardToBank: Record<string, AccountRpcResult>;
   bankToCards: Record<string, AccountRpcResult[]>;
-  payToPoint: Record<string, AccountRpcResult>;
+  payToPoint: Record<string, AccountListType>;
+  pointToPay: Record<string, AccountListType>;
+  giftCardToTarget: Record<string, AccountListType>;
   debtToAsset: Record<string, AccountRpcResult>;
 }
 

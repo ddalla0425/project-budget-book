@@ -8,16 +8,17 @@ export const accountApi = {
       .from('accounts')
       .select(
         `
-          *,
+         *,
+          financial_institutions(*),
           account_cash_details(*),
-          account_bank_details(*),
-          account_card_details(*),
-          account_pay_details(*),
-          account_voucher_details(*),
-          account_insurance_details(*),
-          account_investment_details(*),
-          account_saving_details(*),
-          account_debt_details(*)
+          account_bank_details!account_bank_details_account_id_fkey(*),
+          account_card_details!account_card_details_account_id_fkey(*),
+          account_pay_details!account_pay_details_account_id_fkey(*),
+          account_voucher_details!asset_vouchers_account_id_fkey(*),
+          account_insurance_details!account_insurance_details_account_id_fkey(*),
+          account_investment_details!account_investment_details_account_id_fkey(*),
+          account_saving_details!fk_account_saving_details_accounts(*),
+          account_debt_details!fk_account_debt_details_accounts(*)
       `
       )
       .eq('user_id', userId)

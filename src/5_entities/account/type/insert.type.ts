@@ -15,8 +15,12 @@ export type SavingDetailInsert = Omit<TablesInsert<'account_saving_details'>, Ex
 export type InvestmentDetailInsert = Omit<TablesInsert<'account_investment_details'>, ExcludeFields>;
 export type InsuranceDetailInsert = Omit<TablesInsert<'account_insurance_details'>, ExcludeFields>;
 export type DebtDetailInsert = Omit<TablesInsert<'account_debt_details'>, ExcludeFields>;
-export type VoucherDetailInsert = Omit<TablesInsert<'account_voucher_details'>, ExcludeFields>;
 export type CashDetailInsert = Omit<TablesInsert<'account_cash_details'>, ExcludeFields>;
+export type VoucherDetailInsert = Omit<TablesInsert<'account_voucher_details'>, ExcludeFields>;
+
+export interface PointDetailInsert extends Omit<TablesInsert<'account_voucher_details'>, ExcludeFields> {
+  target_pay_id?: string | null; // 🌟 디테일 안에 위치해야 합니다!
+}
 
 // ----- 저장용 타입 정의 -----
 export interface CashAccountInsert extends AccountInsertBaseInfo {
@@ -60,8 +64,13 @@ export interface DebtAccountInsert extends AccountInsertBaseInfo {
 }
 
 export interface VoucherAccountInsert extends AccountInsertBaseInfo {
-  type: 'GIFT_CARD' | 'POINT';
+  type: 'GIFT_CARD';
   details: VoucherDetailInsert[];
+}
+
+export interface VoucherAccountInsertToPoint extends AccountInsertBaseInfo {
+  type: 'POINT';
+  details: PointDetailInsert[];
 }
 
 export type AccountSaveDetailType =
@@ -73,7 +82,8 @@ export type AccountSaveDetailType =
   | InvestmentDetailInsert
   | InsuranceDetailInsert
   | DebtDetailInsert
-  | VoucherDetailInsert;
+  | VoucherDetailInsert
+  | PointDetailInsert;
 
 export type AccountSaveType =
   | CashAccountInsert
@@ -84,4 +94,5 @@ export type AccountSaveType =
   | InvestmentAccountInsert
   | InsuranceAccountInsert
   | DebtAccountInsert
-  | VoucherAccountInsert;
+  | VoucherAccountInsert
+  | VoucherAccountInsertToPoint;

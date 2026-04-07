@@ -67,11 +67,14 @@ export interface RawDashboardResponse {
   pay: PayAccount[];
   cash: CashAccount[];
   voucher: VoucherAccount[];
-  debt: (DebtAccount & { debt_items: DebtDetail[]; collateral_info: AccountListDetailType })[];
+  debt: (DebtAccount & {
+    debt_items: DebtDetail[];
+    collateral_info: AccountListDetailType;
+  })[];
   relations: AccountRelation[];
 }
 export interface AccountRelation {
-  rel_type: 'ACCOUNT_LINK' | 'PAY_POINT_LINK' | 'DEBT_ACCOUNT_LINK' | 'SAVING_PAYOUT_LINK';
+  rel_type: 'ACCOUNT_LINK' | 'PAY_POINT_LINK' | 'DEBT_ACCOUNT_LINK' | 'SAVING_PAYOUT_LINK' | 'VOUCHER_CONVERT_LINK';
   source_account: AccountRelationResult; // 연결을 시작하는 계좌 (예: 카드)
   target_account: AccountRelationResult; // 연결된 대상 계좌 (예: 결제 은행)
 }
