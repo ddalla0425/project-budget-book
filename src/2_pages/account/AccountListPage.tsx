@@ -1,4 +1,4 @@
-import { AccountListWidget } from '@/3_widgets/accountList/AccountList';
+import { AccountListWidget } from '@/3_widgets/accountList/AccountListWidget';
 import { useGetDashboardQuery } from '@/5_entities/account';
 import { useUserStore } from '@/5_entities/user';
 import { calculateData } from '@/6_shared/lib';

@@ -32,6 +32,9 @@ export const DashboardPage = () => {
         <Link to={'/account/create'}>Account Insert</Link>
       </div>
       <div>
+        <Link to={'/transaction'}>Transaction</Link>
+      </div>
+      <div>
         <Link to={'/mypage'}>Mypage</Link>
       </div>
     </>
