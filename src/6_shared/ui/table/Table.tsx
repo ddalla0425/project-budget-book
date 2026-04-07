@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import * as S from './Table.style';
 
-interface Column<T> {
+export interface Column<T> {
   header: string;
   accessor: keyof T | ((item: T) => React.ReactNode);
   width?: string;

@@ -5,9 +5,11 @@ interface ChildProps {
   id?: string;
   deviceSize?: 'sm' | 'md' | 'lg';
   variant?: 'primary' | 'secondary' | 'danger'; // 통일성을 위한 variant 추가
+  descriptionAlign?: 'left' | 'right' | 'center';
 }
 
 interface FieldProps extends React.HTMLAttributes<HTMLDivElement> {
+  descriptionAlign?: 'left' | 'right' | 'center';
   label?: string;
   labelTag?: 'label' | 'span';
   error?: string; // 에러 메시지 내용
@@ -19,6 +21,7 @@ interface FieldProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const Field = ({
+  descriptionAlign = 'left',
   label,
   labelTag = 'label',
   error,
@@ -31,11 +34,12 @@ export const Field = ({
 }: FieldProps) => {
   const currentVariant = error ? 'danger' : variant;
   const generatedId = useId();
+  const childProps = children.props as ChildProps;
   const targetId = (children.props as ChildProps).id || generatedId;
   const isLabel = labelTag === 'label';
 
   return (
-    <S.Field $deviceSize={deviceSize} $variant={variant} {...rest}>
+    <S.Field $descriptionAlign={descriptionAlign} $deviceSize={deviceSize} $variant={variant} {...rest}>
       {label && (
         <S.Label as={labelTag} htmlFor={isLabel ? targetId : undefined}>
           {label}
@@ -50,17 +54,23 @@ export const Field = ({
               id: targetId,
               // 자식이 string(예: 'input', 'button')이 아닐 때만 프롭 주입
               ...(typeof children.type !== 'string' && {
-                $variant: currentVariant,
-                $deviceSize: deviceSize,
+                $variant: childProps.variant || currentVariant,
+                $deviceSize: childProps.deviceSize || deviceSize,
               }),
             } as ChildProps)
           : children}
       </S.ControlWrapper>
 
       {error ? (
-        <S.Message $variant="danger">{error}</S.Message>
+        <S.Message $descriptionAlign={descriptionAlign} $variant="danger">
+          {error}
+        </S.Message>
       ) : (
-        description && <S.Message $variant="primary">{description}</S.Message>
+        description && (
+          <S.Message $descriptionAlign={descriptionAlign} $variant="primary">
+            {description}
+          </S.Message>
+        )
       )}
     </S.Field>
   );

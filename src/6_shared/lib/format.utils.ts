@@ -22,7 +22,7 @@ interface FormatCurrencyOptions {
  * formatCurrency(100, { currency: 'USD', locale: 'en-US' }); // "$100.00"
  */
 export const formatCurrency = (amount: number | null | undefined, options: FormatCurrencyOptions = {}): string => {
-  const { currency = 'KRW', locale = 'ko-KR', showSign = false, fallback = '₩0' } = options;
+  const { currency = 'KRW', locale = 'ko-KR', showSign = false, fallback = '0₩' } = options;
 
   // 1. 방어 로직: 숫자가 아니거나 유효하지 않은 값이 들어오면 fallback 반환
   if (amount === null || amount === undefined || isNaN(amount)) {
@@ -36,8 +36,17 @@ export const formatCurrency = (amount: number | null | undefined, options: Forma
       currency: currency,
     });
 
-    let formatted = formatter.format(amount);
+    const parts = formatter.formatToParts(amount);
+    // 통화 기호('₩')와 나머지 숫자/부호 영역을 분리합니다.
+    const currencySymbol = parts.find((part) => part.type === 'currency')?.value || '';
+    const numberPart = parts
+      .filter((part) => part.type !== 'currency')
+      .map((part) => part.value)
+      .join('')
+      .trim(); // 혹시 모를 공백 제거
 
+    // 🌟 숫자를 먼저 배치하고 기호를 맨 뒤에 붙여 조립합니다.
+    let formatted = `${numberPart}${currencySymbol}`;
     // 3. 비즈니스 로직: 양수일 때 '+' 기호 강제 추가
     if (showSign && amount > 0) {
       // locale에 따라 기호 위치가 다를 수 있으므로 신중하게 처리
@@ -64,4 +73,32 @@ export const formatCurrency = (amount: number | null | undefined, options: Forma
 export const formatPercent = (value: number): string => {
   if (isNaN(value)) return '0%';
   return `${Math.round(value * 100)}%`;
+};
+
+/** * @description 숫자를 3자리마다 콤마가 찍힌 문자열로 변환 (화면 표시용)
+ * 입력값이 숫자가 아니거나 비어있을 경우 빈 문자열을 반환합니다.
+ * * @param value - 변환할 값 (숫자, 문자열, null, 또는 undefined)
+ * @returns 콤마가 포함된 문자열 (예: "1,234,567") 또는 빈 문자열
+ * * @example
+ * formatNumberWithCommas(1234567); // "1,234,567"
+ * formatNumberWithCommas("1234.5"); // "1,234.5"
+ */
+export const formatNumberWithCommas = (value: number | string | null | undefined): string => {
+  if (value === null || value === undefined || value === '') return '';
+  const num = typeof value === 'string' ? Number(value.replace(/[^0-9.-]/g, '')) : value;
+  return isNaN(num) ? '' : num.toLocaleString();
+};
+
+/** * @description 콤마가 포함된 문자열에서 숫자만 추출 (DB/상태 저장용)
+ * 문자열 내의 숫자, 마침표(.), 마이너스(-) 기호를 제외한 모든 문자를 제거하고 숫자로 변환합니다.
+ * * @param value - 콤마가 포함된 숫자 형식의 문자열
+ * @returns 변환된 숫자(number) 또는 변환 불가 시 null
+ * * @example
+ * parseNumberFromCommas("1,234,567"); // 1234567
+ * parseNumberFromCommas("₩ 50,000"); // 50000
+ */
+export const parseNumberFromCommas = (value: string): number | null => {
+  if (value.trim() === '') return null;
+  const num = Number(value.replace(/[^0-9.-]/g, ''));
+  return isNaN(num) ? null : num;
 };

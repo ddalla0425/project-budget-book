@@ -292,7 +292,6 @@ export type Database = {
       account_insurance_details: {
         Row: {
           account_id: string
-          bank_account_id: string | null
           estimated_refund_amount: number | null
           interest_rate: number | null
           is_refundable: boolean | null
@@ -308,7 +307,6 @@ export type Database = {
         }
         Insert: {
           account_id: string
-          bank_account_id?: string | null
           estimated_refund_amount?: number | null
           interest_rate?: number | null
           is_refundable?: boolean | null
@@ -324,7 +322,6 @@ export type Database = {
         }
         Update: {
           account_id?: string
-          bank_account_id?: string | null
           estimated_refund_amount?: number | null
           interest_rate?: number | null
           is_refundable?: boolean | null
@@ -360,20 +357,17 @@ export type Database = {
             referencedRelation: "accounts"
             referencedColumns: ["id", "user_id"]
           },
-          {
-            foreignKeyName: "fk_insurance_bank_account"
-            columns: ["bank_account_id", "user_id"]
-            isOneToOne: false
-            referencedRelation: "accounts"
-            referencedColumns: ["id", "user_id"]
-          },
         ]
       }
       account_investment_details: {
         Row: {
           account_id: string
           average_buy_price: number | null
+          investment_type: string | null
+          is_auto_sync: boolean | null
           last_market_price: number | null
+          principal_amount: number | null
+          status: string | null
           ticker_symbol: string | null
           total_quantity: number | null
           user_id: string
@@ -381,7 +375,11 @@ export type Database = {
         Insert: {
           account_id: string
           average_buy_price?: number | null
+          investment_type?: string | null
+          is_auto_sync?: boolean | null
           last_market_price?: number | null
+          principal_amount?: number | null
+          status?: string | null
           ticker_symbol?: string | null
           total_quantity?: number | null
           user_id: string
@@ -389,7 +387,11 @@ export type Database = {
         Update: {
           account_id?: string
           average_buy_price?: number | null
+          investment_type?: string | null
+          is_auto_sync?: boolean | null
           last_market_price?: number | null
+          principal_amount?: number | null
+          status?: string | null
           ticker_symbol?: string | null
           total_quantity?: number | null
           user_id?: string
@@ -421,22 +423,31 @@ export type Database = {
       account_pay_details: {
         Row: {
           account_id: string
-          is_auto_rechargeable: boolean | null
+          auto_recharge_type: string | null
           linked_point_account_id: string | null
+          recharge_cycle: string | null
+          recharge_day: number | null
+          recharge_threshold_amount: number | null
           recharge_unit_amount: number | null
           user_id: string | null
         }
         Insert: {
           account_id: string
-          is_auto_rechargeable?: boolean | null
+          auto_recharge_type?: string | null
           linked_point_account_id?: string | null
+          recharge_cycle?: string | null
+          recharge_day?: number | null
+          recharge_threshold_amount?: number | null
           recharge_unit_amount?: number | null
           user_id?: string | null
         }
         Update: {
           account_id?: string
-          is_auto_rechargeable?: boolean | null
+          auto_recharge_type?: string | null
           linked_point_account_id?: string | null
+          recharge_cycle?: string | null
+          recharge_day?: number | null
+          recharge_threshold_amount?: number | null
           recharge_unit_amount?: number | null
           user_id?: string | null
         }
@@ -474,28 +485,40 @@ export type Database = {
       account_saving_details: {
         Row: {
           account_id: string
+          duration_months: number | null
           interest_rate: number | null
           is_installment: boolean | null
           linked_payout_account_id: string | null
           maturity_date: string | null
+          payment_amount: number | null
+          payment_day: number | null
+          start_date: string | null
           status: string | null
           user_id: string
         }
         Insert: {
           account_id: string
+          duration_months?: number | null
           interest_rate?: number | null
           is_installment?: boolean | null
           linked_payout_account_id?: string | null
           maturity_date?: string | null
+          payment_amount?: number | null
+          payment_day?: number | null
+          start_date?: string | null
           status?: string | null
           user_id: string
         }
         Update: {
           account_id?: string
+          duration_months?: number | null
           interest_rate?: number | null
           is_installment?: boolean | null
           linked_payout_account_id?: string | null
           maturity_date?: string | null
+          payment_amount?: number | null
+          payment_day?: number | null
+          start_date?: string | null
           status?: string | null
           user_id?: string
         }
@@ -519,11 +542,14 @@ export type Database = {
       account_voucher_details: {
         Row: {
           account_id: string
+          converted_at: string | null
+          convertible_account_id: string | null
           created_at: string | null
           deleted_at: string | null
           denomination: number
           expiry_date: string | null
           id: string
+          is_convertible: boolean | null
           is_used: boolean | null
           quantity: number
           updated_at: string | null
@@ -532,11 +558,14 @@ export type Database = {
         }
         Insert: {
           account_id: string
+          converted_at?: string | null
+          convertible_account_id?: string | null
           created_at?: string | null
           deleted_at?: string | null
           denomination: number
           expiry_date?: string | null
           id?: string
+          is_convertible?: boolean | null
           is_used?: boolean | null
           quantity?: number
           updated_at?: string | null
@@ -545,11 +574,14 @@ export type Database = {
         }
         Update: {
           account_id?: string
+          converted_at?: string | null
+          convertible_account_id?: string | null
           created_at?: string | null
           deleted_at?: string | null
           denomination?: number
           expiry_date?: string | null
           id?: string
+          is_convertible?: boolean | null
           is_used?: boolean | null
           quantity?: number
           updated_at?: string | null
@@ -557,6 +589,13 @@ export type Database = {
           voucher_name?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "account_voucher_details_convertible_account_id_fkey"
+            columns: ["convertible_account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "account_voucher_details_user_id_fkey"
             columns: ["user_id"]
@@ -771,6 +810,7 @@ export type Database = {
           created_at: string | null
           id: string
           is_active: boolean | null
+          is_convertible: boolean
           is_popular: boolean | null
           logo_url: string | null
           name: string
@@ -783,6 +823,7 @@ export type Database = {
           created_at?: string | null
           id?: string
           is_active?: boolean | null
+          is_convertible?: boolean
           is_popular?: boolean | null
           logo_url?: string | null
           name: string
@@ -795,6 +836,7 @@ export type Database = {
           created_at?: string | null
           id?: string
           is_active?: boolean | null
+          is_convertible?: boolean
           is_popular?: boolean | null
           logo_url?: string | null
           name?: string

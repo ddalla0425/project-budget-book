@@ -10,6 +10,8 @@ interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
   selectCols?: string;
   direction?: 'horizontal' | 'vertical'; // 방향 속성 추가
   align?: 'stretch' | 'center' | 'flex-start' | 'flex-end';
+  description?: ReactNode;
+  hasBoxStyle?: boolean; // 예: 회색 배경이나 테두리 박스 스타일 적용 여부
 }
 
 export const Grid = ({
@@ -21,20 +23,26 @@ export const Grid = ({
   selectCols, // 자식의 각각 너비를 정해주고 싶을떄 사용
   direction = 'horizontal',
   align = 'stretch',
+  description,
+  hasBoxStyle = false,
   ...rest
 }: GridProps) => {
   return (
-    <S.Grid
-      $gap={gap}
-      $width={width}
-      $height={height}
-      $autoCols={autoCols}
-      $selectCols={selectCols}
-      $direction={direction}
-      $align={align}
-      {...rest}
-    >
-      {children}
-    </S.Grid>
+    <S.GridWrapper $width={width}>
+      <S.Grid
+        $gap={gap}
+        $height={height}
+        $autoCols={autoCols}
+        $selectCols={selectCols}
+        $direction={direction}
+        $align={align}
+        $hasBoxStyle={hasBoxStyle}
+        {...rest}
+      >
+        {children}
+      </S.Grid>
+
+      {description && <S.Message>{description}</S.Message>}
+    </S.GridWrapper>
   );
 };

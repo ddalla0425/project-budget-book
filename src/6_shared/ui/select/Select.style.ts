@@ -14,9 +14,9 @@ const sizeStyles = {
     min-height: 32px;
   `,
   md: css`
-    padding: 10px 20px 10px 14px; /* 오른쪽 공간(38px) 확보 */
+    padding: 10px 20px 10px 12px; /* 오른쪽 공간(38px) 확보 */
     font-size: 1rem;
-    background-position: calc(100% - 14px) center;
+    background-position: calc(100% - 10px) center;
     background-size: 12px;
     min-height: 40px;
   `,

@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 interface StyledFieldProps {
   $variant: 'primary' | 'secondary' | 'danger';
   $deviceSize: 'sm' | 'md' | 'lg';
+  $descriptionAlign: 'left' | 'right' | 'center';
 }
 
 const sizeStyles = {
@@ -44,9 +45,7 @@ export const Field = styled.div<StyledFieldProps>`
   width: 100%;
   margin-bottom: var(--container-margin);
 
-  ${({ $deviceSize = 'md' }) => sizeStyles[$deviceSize]}
-
-  &:has(input[type="checkbox"]) {
+  ${({ $deviceSize = 'md' }) => sizeStyles[$deviceSize]} &:has(input[type="checkbox"]) {
     flex-direction: row;
   }
   &:has(input[type='checkbox']) label {
@@ -88,11 +87,14 @@ export const ControlWrapper = styled.div`
   }
 `;
 
-export const Message = styled.span<{ $variant: 'primary' | 'secondary' | 'danger' }>`
+export const Message = styled.span<{
+  $variant: 'primary' | 'secondary' | 'danger';
+  $descriptionAlign: 'left' | 'right' | 'center';
+}>`
   font-size: var(--message-font-size);
   margin-top: var(--field-gap);
   line-height: 1.4;
   min-height: 1em; // 메시지가 생길 때 레이아웃이 덜컹거리는 것 방지
-
+  text-align: ${({ $descriptionAlign = 'left' }) => $descriptionAlign};
   ${({ $variant = 'primary' }) => variantStyles[$variant]};
 `;

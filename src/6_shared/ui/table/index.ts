@@ -1,3 +1,3 @@
 // PUBLIC - Shared/ui/table
 
-export { Table } from './Table';
+export { Table, type Column } from './Table';

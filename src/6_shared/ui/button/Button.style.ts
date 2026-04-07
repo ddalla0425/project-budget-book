@@ -26,9 +26,9 @@ const variantStyles = {
   primary: css`
     background-color: #007bff;
     color: white;
-    border: 1px solid #4f46e5;
+    // border: 1px solid #4f46e5;
     &:hover:not(:disabled) {
-      background-color: #4338ca;
+      background-color: #4399f6;
     }
   `,
   secondary: css`
@@ -78,6 +78,7 @@ export const Button = styled.button<StyledButtonProps>`
   align-items: center;
   justify-content: center;
   border-radius: 8px; /* 조금 더 부드러운 느낌 */
+  border-color: transparent;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
