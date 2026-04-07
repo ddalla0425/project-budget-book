@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { AccountQueueItem } from '@/5_entities/account';
 import { Button } from '@/6_shared/ui/button';
 import { Grid } from '@/6_shared/ui/grid';
@@ -6,18 +5,23 @@ import * as S from './style';
 import { AccountFields } from './fields/AccountField';
 import { useAccountFormStore } from '../model/form.store';
 import type { AccountSaveType } from '@/5_entities/account';
-import { normalizeAccountValue } from '../lib/utils';
+import { useAction } from '../lib/useAction';
+import { useState } from 'react';
 
 interface EditableAccountItemProps {
   index: number;
   data: AccountSaveType; // Entity에서 정의한 타입
-  bankAccounts: { id: string; name: string }[];
+  bankAccounts: { id: string; name: string; current_balance: number }[];
 }
 
 export const EditableAccountItem = ({ index, data, bankAccounts }: EditableAccountItemProps) => {
   const { updateQueueItem, setEditingMode, removeFromQueue, editingIndices } = useAccountFormStore();
   const isEditing = editingIndices.includes(index);
   const [localForm, setLocalForm] = useState<AccountSaveType>(data);
+  const updateLocalForm = (callback: (prev: AccountSaveType) => AccountSaveType) => {
+    setLocalForm((prev) => callback(prev));
+  };
+  const { addDetail, removeDetail } = useAction(updateLocalForm);
 
   const handleCancel = () => {
     setLocalForm(data);
@@ -37,26 +41,6 @@ export const EditableAccountItem = ({ index, data, bankAccounts }: EditableAccou
     setEditingMode(index, false);
   };
 
-  const handleDetailChange = (field: string, value: string | number | boolean) => {
-    setLocalForm((prev) => {
-      if (Array.isArray(prev.details)) return prev;
-
-      return {
-        ...prev,
-        details: { ...prev.details, [field]: value },
-      } as AccountSaveType;
-    });
-  };
-
-  const handleMainChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value, type } = e.target;
-
-    const finalValue =
-      type === 'number' ? normalizeAccountValue(name, (e.target as HTMLInputElement).valueAsNumber) : value;
-
-    setLocalForm((prev) => ({ ...prev, [name]: finalValue }) as AccountSaveType);
-  };
-
   return (
     <AccountQueueItem
       data={data}
@@ -68,8 +52,9 @@ export const EditableAccountItem = ({ index, data, bankAccounts }: EditableAccou
         <S.QueueCard $isEditing={true}>
           <AccountFields
             form={localForm}
-            onChange={handleMainChange}
-            onDetailChange={handleDetailChange}
+            updateForm={updateLocalForm}
+            onAddDetail={() => addDetail(localForm.type)}
+            onRemoveDetail={(idx) => removeDetail(idx, localForm.type)}
             bankAccounts={bankAccounts}
             isCreateMode={false}
           />

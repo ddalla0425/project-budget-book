@@ -22,8 +22,8 @@ export const accountFormApi = {
       p_expiry_date: common.expiry_date ?? undefined,
       p_description: common.description ?? '',
       p_linked_account_id: common.linked_account_id ?? undefined,
-      p_institution_id: common.institution_id ?? null,
-      p_detail: details,
+      p_institution_id: common.institution_id ?? undefined,
+      p_detail: details as unknown as Json,
     });
 
     if (error) throw error;

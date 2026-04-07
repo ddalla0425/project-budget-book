@@ -5,7 +5,7 @@ import { CreditCardField } from './CreditCardField';
 interface Props {
   accounts: AccountSaveType;
   onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
-  onDetailChange: (field: string, value: string | number | boolean) => void;
+  onDetailChange: (field: string, value: string | number | boolean | null) => void;
   bankAccounts: { id: string; name: string; current_balance?: number }[];
 }
 export const CardField = ({ accounts, onChange, onDetailChange, bankAccounts }: Props) => {

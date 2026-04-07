@@ -6,10 +6,10 @@
 export const STRICT_NULL_FIELDS = [
   // 날짜 관련 (1~31)
   'interest_settlement_day',
-  'billing_day',
+  // 'billing_day',
   'repayment_day',
-  'start_day',
-  'end_day',
+  // 'start_day', //말일이 0 이라 무조건 0 선택할 수 있어야함
+  // 'end_day',   //말일이 0 이라 무조건 0 선택할 수 있어야함
   'anchor_day',
   'anchor_month',
 

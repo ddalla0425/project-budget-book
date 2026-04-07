@@ -10,21 +10,23 @@ import { useInstitutionStore } from '@/5_entities/institution';
 interface Props {
   accounts: AccountSaveType;
   onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
-  onDetailChange: (field: string, value: string | number | boolean) => void;
+  onDetailChange: (field: string, value: string | number | boolean | null) => void;
   bankAccounts: { id: string; name: string; current_balance?: number }[];
 }
 export const CheckCardField = ({ accounts, onChange, bankAccounts }: Props) => {
   const hasBankAccounts = bankAccounts.length > 0;
   const institutions = useInstitutionStore((s) => s.institutions);
   const linkedAccount = bankAccounts.find((acc) => acc.id === accounts.linked_account_id);
-  
+
   return (
     <>
       <Grid>
         <Field label="결제 대금 연결 계좌">
           {hasBankAccounts ? (
             <Select name="linked_account_id" value={accounts.linked_account_id || ''} onChange={onChange} required>
-              <option value="">연결 계좌 선택</option>
+              <option value="" disabled>
+                연결 계좌 선택
+              </option>
               {bankAccounts.map((acc) => (
                 <option key={acc.id} value={acc.id}>
                   {acc.name}
@@ -37,7 +39,9 @@ export const CheckCardField = ({ accounts, onChange, bankAccounts }: Props) => {
         </Field>
         <Field label={'카드사 선택'}>
           <Select name="institution_id" onChange={onChange} value={accounts.institution_id || ''}>
-            <option value="">선택하세요</option>
+            <option value="" disabled>
+              선택하세요
+            </option>
             {institutions
               .filter((inst) => inst.type === 'CARD')
               .map((inst) => (
@@ -50,18 +54,35 @@ export const CheckCardField = ({ accounts, onChange, bankAccounts }: Props) => {
         </Field>
       </Grid>
 
+      {/* 공용 필드 - 자산 이름 */}
       <Grid>
-        <Field label="연결 계좌 잔액" error={!accounts.linked_account_id ? '* 연결 계좌를 먼저 선택해 주세요.' : ''}>
+        <Field label="자산 이름">
+          <Input
+            name="name"
+            value={accounts.name}
+            onChange={onChange}
+            placeholder="예: 월급 통장, 생활비 카드"
+            required
+          />
+        </Field>
+      </Grid>
+
+      <Grid>
+        <Field
+          labelTag="span"
+          label="연결 계좌 잔액"
+          error={!accounts.linked_account_id ? '* 연결 계좌를 먼저 선택해 주세요.' : ''}
+        >
           <S.InfoBox>
             {linkedAccount ? (
-              <div>
+              <>
                 <span>
                   🔗 <strong>{linkedAccount.name}</strong> 계좌의 잔액이 공유됩니다.
                   <br />
                   <small>(현재 잔액: {linkedAccount.current_balance?.toLocaleString()}원)</small>
                 </span>
                 <Input type="hidden" name="current_balance" value={0} />
-              </div>
+              </>
             ) : (
               <p>
                 ⚠️ 먼저 연결 계좌를 선택해주세요.

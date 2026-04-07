@@ -1,6 +1,6 @@
-import type { AccountFormState } from '../model/store';
 import type {
   AccountInsertType,
+  AccountSaveType,
   BankDetailInsert,
   CardDetailInsert,
   CashDetailInsert,
@@ -8,22 +8,27 @@ import type {
   InsuranceDetailInsert,
   InvestmentDetailInsert,
   PayDetailInsert,
+  SavingDetailInsert,
   VoucherDetailInsert,
 } from '@/5_entities/account';
 
-export const INITIAL_DETAILS: Record<AccountInsertType, AccountFormState['details']> = {
+export const INITIAL_DETAILS = {
   BANK: {
     account_number: '',
-    deposit_rate: 0,
+    deposit_rate: null,
     interest_cycle: 'MONTHLY',
     interest_settlement_day: null,
     is_main_account: false,
-    loan_rate: 0,
+    loan_rate: null,
   } as BankDetailInsert,
+
+  SAVING: {
+    is_installment: true,
+  } as SavingDetailInsert,
 
   CASH: [
     {
-      cash_type: 'TOTAL',
+      cash_type: 'BILL',
       denomination: 50000,
       quantity: 0,
     },
@@ -31,11 +36,13 @@ export const INITIAL_DETAILS: Record<AccountInsertType, AccountFormState['detail
 
   GIFT_CARD: [
     {
-      expiry_date: undefined,
+      expiry_date: '',
       denomination: 50000,
       quantity: 0,
       is_used: false,
       voucher_name: '',
+      is_convertible: false,
+      convertible_account_id: null,
     },
   ] as VoucherDetailInsert[],
 
@@ -58,10 +65,13 @@ export const INITIAL_DETAILS: Record<AccountInsertType, AccountFormState['detail
       debt_type: '',
       interest_rate: 0,
       remaining_amount: 0,
-      repayment_day: -1,
+      repayment_day: 0,
       start_date: undefined,
       status: 'ACTIVE',
       total_principal: 0,
+      total_prepaid_amount: 0,
+      installment_months: 0,
+      current_installment_plan: 0,
     },
   ] as DebtDetailInsert[],
 
@@ -82,13 +92,17 @@ export const INITIAL_DETAILS: Record<AccountInsertType, AccountFormState['detail
   } as CardDetailInsert,
 
   INVESTMENT: {
-    average_buy_price: 0,
-    last_market_price: 0,
+    investment_type: 'STOCK',
+    average_buy_price: null,
+    last_market_price: null,
+    principal_amount: null,
     ticker_symbol: null,
-    total_quantity: 0,
+    total_quantity: null,
+    status: 'ACTIVE',
   } as InvestmentDetailInsert,
 
   INSURANCE: {
+    payment_cycle: 'MONTHLY',
     interest_rate: 0,
     status: 'ACTIVE',
     estimated_refund_amount: 0,
@@ -101,4 +115,19 @@ export const INITIAL_DETAILS: Record<AccountInsertType, AccountFormState['detail
     linked_point_account_id: null,
     recharge_unit_amount: 0,
   } as PayDetailInsert,
-};
+} satisfies Record<AccountInsertType, AccountSaveType['details']>;
+
+export const CREATE_INITIAL = (userId: string): AccountSaveType => ({
+  user_id: userId,
+  name: '',
+  type: 'BANK',
+  currency: 'KRW',
+  current_balance: undefined,
+  provider: '',
+  is_active: true,
+  linked_account_id: null,
+  details: INITIAL_DETAILS['BANK'],
+  limit_remaining: undefined,
+  amount_limit: 0,
+  institution_id: null,
+});
