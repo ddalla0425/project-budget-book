@@ -1,9 +1,10 @@
 import { GlobalStyle } from '@/1_app/styles';
-import { AppRouter } from '@/1_app/providers';
 import { Modal } from '@/6_shared/ui/modal';
 import { useGetFinancialInstitutionsQuery, useInstitutionStore } from '@/5_entities/institution';
 import 'swiper/bundle';
 import { useEffect } from 'react';
+import { RouterProvider } from 'react-router-dom';
+import { Router } from './router';
 
 function App() {
   const { data: institutions } = useGetFinancialInstitutionsQuery();
@@ -20,7 +21,7 @@ function App() {
     <>
       <GlobalStyle />
       <Modal />
-      <AppRouter />
+      <RouterProvider router={Router}/>
     </>
   );
 }
