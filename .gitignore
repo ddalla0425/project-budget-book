@@ -16,11 +16,22 @@ dist-ssr
 .vscode/*
 !.vscode/extensions.json
 .idea
-.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
 
+# Debug logs
+*.log
+husky_debug.log
+
+# Local environment files (이미 있겠지만 확인!)
 .env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# OS files
+.DS_Store

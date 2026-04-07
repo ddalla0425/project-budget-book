@@ -1,0 +1,5 @@
+feat(supabase): add get-kis-price edge function for domestic stock price tracking
+
+- Implement KIS (Korea Investment & Securities) API integration for real-time stock price retrieval.
+- Add multi-layer token caching strategy using both server memory and database (api_tokens table) to minimize API overhead.
+- Register and configure the get-kis-price function in supabase/config.toml.

@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "update-types": "pnpm dlx supabase gen types typescript --project-id rbhvxtjpdorvmgliczkj > src/6_shared/types/supabase.ts"
+    "update-types": "pnpm dlx supabase gen types typescript --project-id rbhvxtjpdorvmgliczkj > src/6_shared/types/supabase.ts",
+    "prepare": "husky"
   },
   "dependencies": {
     "@supabase/postgrest-js": "^2.97.0",
@@ -39,6 +40,7 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "husky": "^9.1.7",
     "prettier": "^3.8.1",
     "supabase": "^2.76.14",
     "typescript": "~5.9.3",
