@@ -40,18 +40,11 @@ echo "🤖 Gemini가 커밋 메시지 작성중..."
 echo ">> Calling Gemini API..." >> "$DEBUG_LOG"
 
 # 프롬프트에 간결함과 명사형 종결어미 강제 규칙 추가
-PROMPT="너는 20년 차 시니어 풀스택 개발자야. 아래 변경사항(diff)을 분석해서 GEMINI.md 규칙에 맞는 커밋 메시지만 딱 출력해.
-
-[필수 작성 규칙]
-1. 제목은 'type: 핵심 요약' 형태로 작성.
-2. 본문은 장황하게 설명하지 말고, 핵심 이유만 1~3줄로 아주 간결하게 작성.
-3. 본문의 각 줄은 반드시 '-' 불릿으로 시작할 것.
-4. 문장 끝은 반드시 '~함', '~음', '~됨' 등 명사형 종결어미로 끝낼 것 (예: 반영함, 높임, 정리함). '~했습니다', '~해요' 사용 절대 금지.
-5. 인사말, 부연 설명, \`\`\` 같은 마크다운 코드블록 기호는 절대 금지.
+PROMPT="아래 변경사항(diff)을 분석해서, 네가 이미 숙지하고 있는 워크스페이스의 [GEMINI.md -> Commit Rule]에 맞춰 커밋 메시지만 텍스트로 딱 출력해.
 
 $DIFF"
 
-# API 호출 및 에러 포착 : 2>&1 을 써서 에러 메시지까지 변수에 담음
+# API 호출 및 에러 포착 : 순수 메시지만 변수에 담고, 시스템 로그/에러는 파일로 직행!
 GENERATED_MSG=$("$GEMINI_PATH" -p "$PROMPT" -o text --yolo 2>>"$DEBUG_LOG")
 EXIT_CODE=$?
   
@@ -60,11 +53,10 @@ if [ $EXIT_CODE -eq 0 ] && [ -n "$GENERATED_MSG" ]; then
     echo "✅ 메시지 자동 입력 완료!"
     echo ">> Ready: Message 생성 완료. 에디터에게 전달 됨 $(date "+%Y-%m-%d %H:%M:%S")" >> "$DEBUG_LOG"
 else
-    # 에러 로깅
-    echo "❌ Error: Gemini 호출 실패 (Code: $EXIT_CODE)" >> "$DEBUG_LOG"
-    echo ">> API Response/Error: $GENERATED_MSG" >> "$DEBUG_LOG"
-    echo "❌ Error: Gemini 호출 실패 (Code: $EXIT_CODE)"
-    echo ">> API Response/Error: $GENERATED_MSG"
+    # 에러 로깅 (상세 에러는 이미 2>> 를 통해 로그에 기록되었으므로 상태만 알림)
+    echo "❌ Error: Gemini 호출 실패 또는 빈 응답 (Code: $EXIT_CODE)" >> "$DEBUG_LOG"
+    echo "❌ Error: Gemini 호출 실패 또는 빈 응답 (Code: $EXIT_CODE)"
+    echo "💡 상세 에러 내용은 $DEBUG_LOG 파일을 확인하세요."
 fi
 
 
