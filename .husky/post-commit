@@ -1,0 +1,7 @@
+#!/bin/sh
+DEBUG_LOG="husky_debug.log"
+
+# 실제 커밋이 완료된 시점에만 찍히는 로그
+echo ">> Confirmed: Commit 성공. [$(date "+%Y-%m-%d %H:%M:%S")]" >> "$DEBUG_LOG"
+echo "--------------------------------------------------" >> "$DEBUG_LOG"
+echo ">> Confirmed: Commit 성공. [$(date "+%Y-%m-%d %H:%M:%S")]"

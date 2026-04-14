@@ -23,7 +23,6 @@ dist-ssr
 *.sw?
 
 # Debug logs
-*.log
 husky_debug.log
 
 # Local environment files (이미 있겠지만 확인!)
