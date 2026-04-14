@@ -16,9 +16,14 @@ if [ -z "$GEMINI_PATH" ]; then
 fi
 
 DIFF=$(git diff --staged)
+if [ -z "$DIFF" ]; then 
+  echo "⚠️ 스테이징된 변경사항(diff)이 없습니다. 커밋 메시지 생성을 건너뜁니다."
+  exit 0
+fi
+
 
 if [ -n "$DIFF" ] && [ -n "$GEMINI_PATH" ]; then
-  echo "🤖 20년 차 시니어 Gemini가 쿨한 문체로 대필 중..."
+  echo "🤖 Gemini가 커밋 메시지 작성중..."
   
   # 프롬프트에 간결함과 명사형 종결어미 강제 규칙 추가
   PROMPT="너는 20년 차 시니어 풀스택 개발자야. 아래 변경사항(diff)을 분석해서 GEMINI.md 규칙에 맞는 커밋 메시지만 딱 출력해.
