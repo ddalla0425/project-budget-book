@@ -52,7 +52,7 @@ PROMPT="너는 20년 차 시니어 풀스택 개발자야. 아래 변경사항(d
 $DIFF"
 
 # API 호출 및 에러 포착 : 2>&1 을 써서 에러 메시지까지 변수에 담음
-GENERATED_MSG=$("$GEMINI_PATH" -p "$PROMPT" -o text --yolo 2>&1)
+GENERATED_MSG=$("$GEMINI_PATH" -p "$PROMPT" -o text --yolo 2>>"$DEBUG_LOG")
 EXIT_CODE=$?
   
 if [ $EXIT_CODE -eq 0 ] && [ -n "$GENERATED_MSG" ]; then
