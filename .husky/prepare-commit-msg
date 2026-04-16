@@ -43,14 +43,15 @@ echo ">> Calling Gemini API..." >> "$DEBUG_LOG"
 PROMPT="아래 변경사항(diff)을 분석해서, 네가 이미 숙지하고 있는 워크스페이스의 [GEMINI.md -> Commit Rule]에 맞춰 커밋 메시지만 텍스트로 딱 출력해.
 
 [엄격한 제약 조건 - 반드시 지킬 것]
-1. 'I will check...', 'I will read...' 같은 너의 파일 탐색 과정이나 사고 과정(Chain of Thought)을 절대 화면에 출력하지 마.
-2. 부연 설명, 인사말, 마크다운 기호 없이 오직 '완성된 커밋 메시지(type: summary 형태)'만 딱 출력해.
+1. 🚨 무조건 '한국어'로 작성할 것! (English is STRICTLY PROHIBITED)
+2. 'I will check...' 같은 너의 탐색/사고 과정(Chain of Thought)을 절대 출력하지 마.
+3. 부연 설명, 인사말, 마크다운 기호 없이 오직 '완성된 커밋 메시지(type: summary 형태)'만 딱 출력해.
 
 [변경사항]
 $DIFF"
 
 # API 호출 및 에러 포착 : 순수 메시지만 변수에 담고, 시스템 로그/에러는 파일로 직행!
-GENERATED_MSG=$("$GEMINI_PATH" -p "$PROMPT" -o text --yolo 2>>"$DEBUG_LOG")
+GENERATED_MSG=$("$GEMINI_PATH" -p "$PROMPT" -o text --model gemini-2.5-flash-lite --yolo 2>>"$DEBUG_LOG")
 EXIT_CODE=$?
   
 if [ $EXIT_CODE -eq 0 ] && [ -n "$GENERATED_MSG" ]; then
