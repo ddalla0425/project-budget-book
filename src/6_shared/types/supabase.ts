@@ -1,17 +1,11 @@
-export type Json =
-  | string
-  | number
-  | boolean
-  | null
-  | { [key: string]: Json | undefined }
-  | Json[]
+export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "14.1"
-  }
+    PostgrestVersion: '14.1';
+  };
   public: {
     Tables: {
       account_bank_details: {
@@ -699,11 +693,11 @@ export type Database = {
             referencedColumns: ["id", "user_id"]
           },
           {
-            foreignKeyName: "fk_accounts_user"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            foreignKeyName: 'fk_accounts_user';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
           },
         ]
       }
@@ -753,54 +747,54 @@ export type Database = {
       }
       categories: {
         Row: {
-          id: string
-          is_active: boolean
-          main_category: string
-          sub_category: string
-        }
+          id: string;
+          is_active: boolean;
+          main_category: string;
+          sub_category: string;
+        };
         Insert: {
-          id?: string
-          is_active?: boolean
-          main_category: string
-          sub_category: string
-        }
+          id?: string;
+          is_active?: boolean;
+          main_category: string;
+          sub_category: string;
+        };
         Update: {
-          id?: string
-          is_active?: boolean
-          main_category?: string
-          sub_category?: string
-        }
-        Relationships: []
-      }
+          id?: string;
+          is_active?: boolean;
+          main_category?: string;
+          sub_category?: string;
+        };
+        Relationships: [];
+      };
       contacts: {
         Row: {
-          created_at: string
-          id: string
-          name: string
-          updated_at: string
-          user_id: string
-        }
+          created_at: string;
+          id: string;
+          name: string;
+          updated_at: string;
+          user_id: string;
+        };
         Insert: {
-          created_at?: string
-          id?: string
-          name: string
-          updated_at?: string
-          user_id: string
-        }
+          created_at?: string;
+          id?: string;
+          name: string;
+          updated_at?: string;
+          user_id: string;
+        };
         Update: {
-          created_at?: string
-          id?: string
-          name?: string
-          updated_at?: string
-          user_id?: string
-        }
+          created_at?: string;
+          id?: string;
+          name?: string;
+          updated_at?: string;
+          user_id?: string;
+        };
         Relationships: [
           {
-            foreignKeyName: "contacts_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            foreignKeyName: 'contacts_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
           },
         ]
       }
@@ -848,194 +842,194 @@ export type Database = {
       }
       recurrence_rules: {
         Row: {
-          anchor_day: number
-          anchor_month: number | null
-          id: string
-          interval_months: number
-          recurring_expense_id: string
-        }
+          anchor_day: number;
+          anchor_month: number | null;
+          id: string;
+          interval_months: number;
+          recurring_expense_id: string;
+        };
         Insert: {
-          anchor_day: number
-          anchor_month?: number | null
-          id?: string
-          interval_months: number
-          recurring_expense_id: string
-        }
+          anchor_day: number;
+          anchor_month?: number | null;
+          id?: string;
+          interval_months: number;
+          recurring_expense_id: string;
+        };
         Update: {
-          anchor_day?: number
-          anchor_month?: number | null
-          id?: string
-          interval_months?: number
-          recurring_expense_id?: string
-        }
+          anchor_day?: number;
+          anchor_month?: number | null;
+          id?: string;
+          interval_months?: number;
+          recurring_expense_id?: string;
+        };
         Relationships: [
           {
-            foreignKeyName: "recurrence_rules_recurring_expense_id_fkey"
-            columns: ["recurring_expense_id"]
-            isOneToOne: false
-            referencedRelation: "recurring_expenses"
-            referencedColumns: ["id"]
+            foreignKeyName: 'recurrence_rules_recurring_expense_id_fkey';
+            columns: ['recurring_expense_id'];
+            isOneToOne: false;
+            referencedRelation: 'recurring_expenses';
+            referencedColumns: ['id'];
           },
-        ]
-      }
+        ];
+      };
       recurring_expense_items: {
         Row: {
-          amount: number
-          id: string
-          name: string
-          recurring_expense_id: string
-        }
+          amount: number;
+          id: string;
+          name: string;
+          recurring_expense_id: string;
+        };
         Insert: {
-          amount: number
-          id?: string
-          name: string
-          recurring_expense_id: string
-        }
+          amount: number;
+          id?: string;
+          name: string;
+          recurring_expense_id: string;
+        };
         Update: {
-          amount?: number
-          id?: string
-          name?: string
-          recurring_expense_id?: string
-        }
+          amount?: number;
+          id?: string;
+          name?: string;
+          recurring_expense_id?: string;
+        };
         Relationships: [
           {
-            foreignKeyName: "recurring_expense_items_recurring_expense_id_fkey"
-            columns: ["recurring_expense_id"]
-            isOneToOne: false
-            referencedRelation: "recurring_expenses"
-            referencedColumns: ["id"]
+            foreignKeyName: 'recurring_expense_items_recurring_expense_id_fkey';
+            columns: ['recurring_expense_id'];
+            isOneToOne: false;
+            referencedRelation: 'recurring_expenses';
+            referencedColumns: ['id'];
           },
-        ]
-      }
+        ];
+      };
       recurring_expenses: {
         Row: {
-          account_id: string
-          category_id: string | null
-          created_at: string
-          id: string
-          is_active: boolean
-          next_run_date: string
-          title: string
-          updated_at: string
-          user_id: string
-          vendor_name: string | null
-        }
+          account_id: string;
+          category_id: string | null;
+          created_at: string;
+          id: string;
+          is_active: boolean;
+          next_run_date: string;
+          title: string;
+          updated_at: string;
+          user_id: string;
+          vendor_name: string | null;
+        };
         Insert: {
-          account_id: string
-          category_id?: string | null
-          created_at?: string
-          id?: string
-          is_active?: boolean
-          next_run_date: string
-          title: string
-          updated_at?: string
-          user_id: string
-          vendor_name?: string | null
-        }
+          account_id: string;
+          category_id?: string | null;
+          created_at?: string;
+          id?: string;
+          is_active?: boolean;
+          next_run_date: string;
+          title: string;
+          updated_at?: string;
+          user_id: string;
+          vendor_name?: string | null;
+        };
         Update: {
-          account_id?: string
-          category_id?: string | null
-          created_at?: string
-          id?: string
-          is_active?: boolean
-          next_run_date?: string
-          title?: string
-          updated_at?: string
-          user_id?: string
-          vendor_name?: string | null
-        }
+          account_id?: string;
+          category_id?: string | null;
+          created_at?: string;
+          id?: string;
+          is_active?: boolean;
+          next_run_date?: string;
+          title?: string;
+          updated_at?: string;
+          user_id?: string;
+          vendor_name?: string | null;
+        };
         Relationships: [
           {
-            foreignKeyName: "fk_recurring_account_same_user"
-            columns: ["account_id", "user_id"]
-            isOneToOne: false
-            referencedRelation: "accounts"
-            referencedColumns: ["id", "user_id"]
+            foreignKeyName: 'fk_recurring_account_same_user';
+            columns: ['account_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'accounts';
+            referencedColumns: ['id', 'user_id'];
           },
           {
-            foreignKeyName: "fk_recurring_user_category_same_user"
-            columns: ["category_id", "user_id"]
-            isOneToOne: false
-            referencedRelation: "user_categories"
-            referencedColumns: ["id", "user_id"]
+            foreignKeyName: 'fk_recurring_user_category_same_user';
+            columns: ['category_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'user_categories';
+            referencedColumns: ['id', 'user_id'];
           },
           {
-            foreignKeyName: "recurring_expenses_category_id_fkey"
-            columns: ["category_id"]
-            isOneToOne: false
-            referencedRelation: "user_categories"
-            referencedColumns: ["id"]
+            foreignKeyName: 'recurring_expenses_category_id_fkey';
+            columns: ['category_id'];
+            isOneToOne: false;
+            referencedRelation: 'user_categories';
+            referencedColumns: ['id'];
           },
           {
-            foreignKeyName: "recurring_expenses_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            foreignKeyName: 'recurring_expenses_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
           },
-        ]
-      }
+        ];
+      };
       settlements: {
         Row: {
-          amount: number
-          completed_at: string | null
-          contact_id: string
-          created_at: string
-          id: string
-          original_transaction_id: string | null
-          paid_amount: number
-          role: string
-          status: string
-          user_id: string
-        }
+          amount: number;
+          completed_at: string | null;
+          contact_id: string;
+          created_at: string;
+          id: string;
+          original_transaction_id: string | null;
+          paid_amount: number;
+          role: string;
+          status: string;
+          user_id: string;
+        };
         Insert: {
-          amount: number
-          completed_at?: string | null
-          contact_id: string
-          created_at?: string
-          id?: string
-          original_transaction_id?: string | null
-          paid_amount?: number
-          role: string
-          status?: string
-          user_id: string
-        }
+          amount: number;
+          completed_at?: string | null;
+          contact_id: string;
+          created_at?: string;
+          id?: string;
+          original_transaction_id?: string | null;
+          paid_amount?: number;
+          role: string;
+          status?: string;
+          user_id: string;
+        };
         Update: {
-          amount?: number
-          completed_at?: string | null
-          contact_id?: string
-          created_at?: string
-          id?: string
-          original_transaction_id?: string | null
-          paid_amount?: number
-          role?: string
-          status?: string
-          user_id?: string
-        }
+          amount?: number;
+          completed_at?: string | null;
+          contact_id?: string;
+          created_at?: string;
+          id?: string;
+          original_transaction_id?: string | null;
+          paid_amount?: number;
+          role?: string;
+          status?: string;
+          user_id?: string;
+        };
         Relationships: [
           {
-            foreignKeyName: "fk_settlements_contact_same_user"
-            columns: ["contact_id", "user_id"]
-            isOneToOne: false
-            referencedRelation: "contacts"
-            referencedColumns: ["id", "user_id"]
+            foreignKeyName: 'fk_settlements_contact_same_user';
+            columns: ['contact_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'contacts';
+            referencedColumns: ['id', 'user_id'];
           },
           {
-            foreignKeyName: "fk_settlements_transaction_same_user"
-            columns: ["original_transaction_id", "user_id"]
-            isOneToOne: false
-            referencedRelation: "transactions"
-            referencedColumns: ["id", "user_id"]
+            foreignKeyName: 'fk_settlements_transaction_same_user';
+            columns: ['original_transaction_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'transactions';
+            referencedColumns: ['id', 'user_id'];
           },
           {
-            foreignKeyName: "settlements_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            foreignKeyName: 'settlements_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
           },
-        ]
-      }
+        ];
+      };
       transactions: {
         Row: {
           account_id: string
@@ -1099,11 +1093,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "fk_transactions_account_same_user"
-            columns: ["account_id", "user_id"]
-            isOneToOne: false
-            referencedRelation: "accounts"
-            referencedColumns: ["id", "user_id"]
+            foreignKeyName: 'fk_transactions_account_same_user';
+            columns: ['account_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'accounts';
+            referencedColumns: ['id', 'user_id'];
           },
           {
             foreignKeyName: "fk_transactions_category_same_user"
@@ -1120,140 +1114,140 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "fk_transactions_recurring_same_user"
-            columns: ["recurring_expense_id", "user_id"]
-            isOneToOne: false
-            referencedRelation: "recurring_expenses"
-            referencedColumns: ["id", "user_id"]
+            foreignKeyName: 'fk_transactions_recurring_same_user';
+            columns: ['recurring_expense_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'recurring_expenses';
+            referencedColumns: ['id', 'user_id'];
           },
           {
-            foreignKeyName: "fk_transactions_transfer_group_same_user"
-            columns: ["transfer_group_id", "user_id"]
-            isOneToOne: false
-            referencedRelation: "transfer_groups"
-            referencedColumns: ["id", "user_id"]
+            foreignKeyName: 'fk_transactions_transfer_group_same_user';
+            columns: ['transfer_group_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'transfer_groups';
+            referencedColumns: ['id', 'user_id'];
           },
           {
-            foreignKeyName: "transactions_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            foreignKeyName: 'transactions_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
           },
-        ]
-      }
+        ];
+      };
       transfer_groups: {
         Row: {
-          created_at: string
-          id: string
-          memo: string | null
-          status: string
-          user_id: string
-        }
+          created_at: string;
+          id: string;
+          memo: string | null;
+          status: string;
+          user_id: string;
+        };
         Insert: {
-          created_at?: string
-          id?: string
-          memo?: string | null
-          status?: string
-          user_id: string
-        }
+          created_at?: string;
+          id?: string;
+          memo?: string | null;
+          status?: string;
+          user_id: string;
+        };
         Update: {
-          created_at?: string
-          id?: string
-          memo?: string | null
-          status?: string
-          user_id?: string
-        }
+          created_at?: string;
+          id?: string;
+          memo?: string | null;
+          status?: string;
+          user_id?: string;
+        };
         Relationships: [
           {
-            foreignKeyName: "transfer_groups_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            foreignKeyName: 'transfer_groups_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
           },
-        ]
-      }
+        ];
+      };
       user_categories: {
         Row: {
-          base_category_id: string | null
-          created_at: string
-          id: string
-          is_active: boolean
-          name: string
-          parent_id: string | null
-          user_id: string
-        }
+          base_category_id: string | null;
+          created_at: string;
+          id: string;
+          is_active: boolean;
+          name: string;
+          parent_id: string | null;
+          user_id: string;
+        };
         Insert: {
-          base_category_id?: string | null
-          created_at?: string
-          id?: string
-          is_active?: boolean
-          name: string
-          parent_id?: string | null
-          user_id: string
-        }
+          base_category_id?: string | null;
+          created_at?: string;
+          id?: string;
+          is_active?: boolean;
+          name: string;
+          parent_id?: string | null;
+          user_id: string;
+        };
         Update: {
-          base_category_id?: string | null
-          created_at?: string
-          id?: string
-          is_active?: boolean
-          name?: string
-          parent_id?: string | null
-          user_id?: string
-        }
+          base_category_id?: string | null;
+          created_at?: string;
+          id?: string;
+          is_active?: boolean;
+          name?: string;
+          parent_id?: string | null;
+          user_id?: string;
+        };
         Relationships: [
           {
-            foreignKeyName: "fk_user_categories_parent"
-            columns: ["parent_id", "user_id"]
-            isOneToOne: false
-            referencedRelation: "user_categories"
-            referencedColumns: ["id", "user_id"]
+            foreignKeyName: 'fk_user_categories_parent';
+            columns: ['parent_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'user_categories';
+            referencedColumns: ['id', 'user_id'];
           },
           {
-            foreignKeyName: "fk_user_categories_user"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            foreignKeyName: 'fk_user_categories_user';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
           },
           {
-            foreignKeyName: "user_categories_base_category_id_fkey"
-            columns: ["base_category_id"]
-            isOneToOne: false
-            referencedRelation: "categories"
-            referencedColumns: ["id"]
+            foreignKeyName: 'user_categories_base_category_id_fkey';
+            columns: ['base_category_id'];
+            isOneToOne: false;
+            referencedRelation: 'categories';
+            referencedColumns: ['id'];
           },
-        ]
-      }
+        ];
+      };
       users: {
         Row: {
-          created_at: string
-          email: string
-          id: string
-          name: string
-          updated_at: string
-        }
+          created_at: string;
+          email: string;
+          id: string;
+          name: string;
+          updated_at: string;
+        };
         Insert: {
-          created_at?: string
-          email: string
-          id: string
-          name: string
-          updated_at?: string
-        }
+          created_at?: string;
+          email: string;
+          id: string;
+          name: string;
+          updated_at?: string;
+        };
         Update: {
-          created_at?: string
-          email?: string
-          id?: string
-          name?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
-    }
+          created_at?: string;
+          email?: string;
+          id?: string;
+          name?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+    };
     Views: {
-      [_ in never]: never
-    }
+      [_ in never]: never;
+    };
     Functions: {
       create_account_with_details:
         | {
@@ -1309,133 +1303,125 @@ export type Database = {
       get_user_account_dashboard_v2: { Args: never; Returns: Json }
     }
     Enums: {
-      [_ in never]: never
-    }
+      [_ in never]: never;
+    };
     CompositeTypes: {
-      [_ in never]: never
-    }
-  }
-}
+      [_ in never]: never;
+    };
+  };
+};
 
-type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
+type DatabaseWithoutInternals = Omit<Database, '__InternalSupabase'>;
 
-type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]
+type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, 'public'>];
 
 export type Tables<
   DefaultSchemaTableNameOrOptions extends
-    | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
+    | keyof (DefaultSchema['Tables'] & DefaultSchema['Views'])
     | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals
+    schema: keyof DatabaseWithoutInternals;
   }
-    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
-        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
+    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'] &
+        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Views'])
     : never = never,
 > = DefaultSchemaTableNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals
+  schema: keyof DatabaseWithoutInternals;
 }
-  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
-      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
-      Row: infer R
+  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'] &
+      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Views'])[TableName] extends {
+      Row: infer R;
     }
     ? R
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] &
-        DefaultSchema["Views"])
-    ? (DefaultSchema["Tables"] &
-        DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
-        Row: infer R
+  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema['Tables'] & DefaultSchema['Views'])
+    ? (DefaultSchema['Tables'] & DefaultSchema['Views'])[DefaultSchemaTableNameOrOptions] extends {
+        Row: infer R;
       }
       ? R
       : never
-    : never
+    : never;
 
 export type TablesInsert<
-  DefaultSchemaTableNameOrOptions extends
-    | keyof DefaultSchema["Tables"]
-    | { schema: keyof DatabaseWithoutInternals },
+  DefaultSchemaTableNameOrOptions extends keyof DefaultSchema['Tables'] | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals
+    schema: keyof DatabaseWithoutInternals;
   }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables']
     : never = never,
 > = DefaultSchemaTableNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals
+  schema: keyof DatabaseWithoutInternals;
 }
-  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Insert: infer I
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'][TableName] extends {
+      Insert: infer I;
     }
     ? I
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
-    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
-        Insert: infer I
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema['Tables']
+    ? DefaultSchema['Tables'][DefaultSchemaTableNameOrOptions] extends {
+        Insert: infer I;
       }
       ? I
       : never
-    : never
+    : never;
 
 export type TablesUpdate<
-  DefaultSchemaTableNameOrOptions extends
-    | keyof DefaultSchema["Tables"]
-    | { schema: keyof DatabaseWithoutInternals },
+  DefaultSchemaTableNameOrOptions extends keyof DefaultSchema['Tables'] | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals
+    schema: keyof DatabaseWithoutInternals;
   }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables']
     : never = never,
 > = DefaultSchemaTableNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals
+  schema: keyof DatabaseWithoutInternals;
 }
-  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Update: infer U
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'][TableName] extends {
+      Update: infer U;
     }
     ? U
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
-    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
-        Update: infer U
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema['Tables']
+    ? DefaultSchema['Tables'][DefaultSchemaTableNameOrOptions] extends {
+        Update: infer U;
       }
       ? U
       : never
-    : never
+    : never;
 
 export type Enums<
-  DefaultSchemaEnumNameOrOptions extends
-    | keyof DefaultSchema["Enums"]
-    | { schema: keyof DatabaseWithoutInternals },
+  DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema['Enums'] | { schema: keyof DatabaseWithoutInternals },
   EnumName extends DefaultSchemaEnumNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals
+    schema: keyof DatabaseWithoutInternals;
   }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
+    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions['schema']]['Enums']
     : never = never,
 > = DefaultSchemaEnumNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals
+  schema: keyof DatabaseWithoutInternals;
 }
-  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
-  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
-    ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
-    : never
+  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions['schema']]['Enums'][EnumName]
+  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema['Enums']
+    ? DefaultSchema['Enums'][DefaultSchemaEnumNameOrOptions]
+    : never;
 
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
-    | keyof DefaultSchema["CompositeTypes"]
+    | keyof DefaultSchema['CompositeTypes']
     | { schema: keyof DatabaseWithoutInternals },
   CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals
+    schema: keyof DatabaseWithoutInternals;
   }
-    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions['schema']]['CompositeTypes']
     : never = never,
 > = PublicCompositeTypeNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals
+  schema: keyof DatabaseWithoutInternals;
 }
-  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
-  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
-    ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
-    : never
+  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions['schema']]['CompositeTypes'][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema['CompositeTypes']
+    ? DefaultSchema['CompositeTypes'][PublicCompositeTypeNameOrOptions]
+    : never;
 
 export const Constants = {
   public: {
     Enums: {},
   },
-} as const
+} as const;
