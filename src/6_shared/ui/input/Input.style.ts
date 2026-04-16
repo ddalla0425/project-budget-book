@@ -1,8 +1,8 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
 interface StyledInputProps {
-  $variant: 'primary' | 'secondary' | 'danger';
-  $deviceSize: 'sm' | 'md' | 'lg';
+  $variant: "primary" | "secondary" | "danger";
+  $deviceSize: "sm" | "md" | "lg";
 }
 
 const sizeStyles = {
@@ -11,7 +11,7 @@ const sizeStyles = {
     font-size: 0.85rem;
   `,
   md: css`
-    padding: 10px 14px;
+    padding: 10px 12px;
     font-size: 1rem;
   `,
   lg: css`
@@ -50,9 +50,43 @@ export const Input = styled.input<StyledInputProps>`
   transition: all 0.2s ease-in-out;
   box-sizing: border-box;
 
-  ${({ $deviceSize = 'md' }) => sizeStyles[$deviceSize]}
-  ${({ $variant = 'primary' }) => variantStyles[$variant]}
-  width: 100%;
+  ${({ $deviceSize = "md" }) => sizeStyles[$deviceSize]} ${(
+    { $variant = "primary" },
+  ) => variantStyles[$variant]} width: 100%;
+
+  ${({ type }) =>
+    type === "number" &&
+    css`
+      -moz-appearance: textfield;
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+      }
+    `};
+
+  ${({ type }) =>
+    type === "checkbox" &&
+    css`
+      padding: 0;
+      cursor: pointer;
+      border: none;
+      box-shadow: none;
+      align-self: center;
+    `};
+
+  ${({ type }) =>
+    type === "date" &&
+    css`
+      font-size: 0.875rem;
+      letter-spacing: -0.1rem;
+      &::-webkit-calendar-picker-indicator {
+        cursor: pointer;
+        opacity: 0.6;
+        &:hover {
+          opacity: 1;
+        }
+      }
+    `};
 
   &:disabled {
     background-color: #f5f5f5;
@@ -63,5 +97,15 @@ export const Input = styled.input<StyledInputProps>`
 
   &::placeholder {
     color: #bbb;
+  }
+
+  &:read-only {
+    background-color: #f5f5f5;
+    cursor: no-drop;
+    &:focus {
+      outline: none;
+      border-color: #ccc; /* 일반 상태의 테두리색 유지 */
+      box-shadow: none;
+    }
   }
 `;

@@ -12,7 +12,7 @@ export const useOnboardingModal = () => {
           title: '반가워요! 👋',
           content: (
             <div>
-              <span className="emoji">📊</span>
+              <span className="emoji">🤗</span>
               <strong className="main-message">서비스 이용이 처음이신가요?</strong>
               <span className="sub-message">똑똑한 자산 관리를 시작해 보세요.</span>
             </div>
@@ -20,7 +20,7 @@ export const useOnboardingModal = () => {
           confirmText: '다음으로',
         },
         {
-          title: 'STEP 1. 자산을 등록해 볼까요? ✋',
+          title: '먼저, 자산을 등록해 볼까요?',
           content: (
             <div>
               <span className="emoji">📊</span>

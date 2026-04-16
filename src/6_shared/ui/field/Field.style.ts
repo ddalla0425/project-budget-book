@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 interface StyledFieldProps {
   $variant: 'primary' | 'secondary' | 'danger';
   $deviceSize: 'sm' | 'md' | 'lg';
+  $descriptionAlign: 'left' | 'right' | 'center';
 }
 
 const sizeStyles = {
@@ -44,7 +45,14 @@ export const Field = styled.div<StyledFieldProps>`
   width: 100%;
   margin-bottom: var(--container-margin);
 
-  ${({ $deviceSize = 'md' }) => sizeStyles[$deviceSize]}
+  ${({ $deviceSize = 'md' }) => sizeStyles[$deviceSize]} &:has(input[type="checkbox"]) {
+    flex-direction: row;
+  }
+  &:has(input[type='checkbox']) label {
+    order: 2;
+    margin: 0;
+    margin-left: 5px;
+  }
 `;
 
 export const Label = styled.label`
@@ -73,13 +81,20 @@ export const ControlWrapper = styled.div`
   width: 100%;
   position: relative;
   /* 내부의 Input이나 Select가 100%로 꽉 차게 됨 */
+  &:has(input[type='checkbox']) {
+    width: auto;
+    display: inline-flex;
+  }
 `;
 
-export const Message = styled.span<{ $variant: 'primary' | 'secondary' | 'danger' }>`
+export const Message = styled.span<{
+  $variant: 'primary' | 'secondary' | 'danger';
+  $descriptionAlign: 'left' | 'right' | 'center';
+}>`
   font-size: var(--message-font-size);
   margin-top: var(--field-gap);
   line-height: 1.4;
   min-height: 1em; // 메시지가 생길 때 레이아웃이 덜컹거리는 것 방지
-
-  ${({ $variant = 'primary' }) => variantStyles[$variant]}
+  text-align: ${({ $descriptionAlign = 'left' }) => $descriptionAlign};
+  ${({ $variant = 'primary' }) => variantStyles[$variant]};
 `;

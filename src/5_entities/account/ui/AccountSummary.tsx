@@ -1,33 +1,37 @@
 import type { TablesInsert } from '@/6_shared/types';
 import * as S from './AccountUI.style';
-import { ACCOUNT_TYPE_LABELS } from '@/6_shared/constants';
+import { ACCOUNT_TYPE_LABELS } from './../constants/typeLabel';
+import { formatCurrency } from '@/6_shared/lib';
 
 interface SummaryProps {
   data: TablesInsert<'accounts'>;
-  linkedBankName?: string;
+  linkedBank?: { id: string; name: string; current_balance: number };
   onEdit: () => void;
   onRemove: () => void;
 }
 
-export const AccountSummary = ({ data, linkedBankName, onEdit, onRemove }: SummaryProps) => {
-  // 금액 포맷팅 (시니어의 디테일: 천단위 콤마)
-  const formattedAmount = new Intl.NumberFormat('ko-KR', {
-    style: 'currency',
-    currency: data.currency || 'KRW',
-  }).format(data.current_balance || 0);
-  console.log('실제 데이터 타입:', data.type);
-  const typeLabel = ACCOUNT_TYPE_LABELS[data.type] || data.type;
+export const AccountSummary = ({ data, linkedBank, onEdit, onRemove }: SummaryProps) => {
+  if (!data) return null;
+  const formattedAmount = formatCurrency(data.current_balance);
+  const formattedBankAmount = formatCurrency(linkedBank?.current_balance);
+  const typeLabel = ACCOUNT_TYPE_LABELS[data.type as keyof typeof ACCOUNT_TYPE_LABELS] || data.type;
 
   return (
     <S.SummaryWrapper>
       <S.InfoGroup>
         <S.TypeBadge $type={data.type}>{typeLabel}</S.TypeBadge>
         <S.AccountName>{data.name}</S.AccountName>
-        {linkedBankName && <S.LinkedInfo>🔗 연결: {linkedBankName}</S.LinkedInfo>}
+        {linkedBank && (
+          <S.LinkedInfo>
+            🔗 연결: {linkedBank?.name}
+            <br />
+            통장 잔액 : {formattedBankAmount}
+          </S.LinkedInfo>
+        )}
       </S.InfoGroup>
 
       <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-        <S.AmountText>{formattedAmount}</S.AmountText>
+        <S.AmountText>{data.type === 'CHECK_CARD' ? '' : formattedAmount}</S.AmountText>
         <div style={{ display: 'flex', gap: '4px', justifyContent: 'flex-end' }}>
           <button onClick={onEdit} style={{ fontSize: '12px', cursor: 'pointer' }}>
             수정

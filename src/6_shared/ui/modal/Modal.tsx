@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useModalStore } from '@/6_shared/model/useModalStore'; // 스토어 임포트
+import { useModalStore } from '@/6_shared/model/modal.store'; // 스토어 임포트
 import * as S from './Modal.style'; // 스타일 임포트
 import { SwiperSlide, type SwiperClass } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
@@ -9,7 +9,7 @@ export const Modal = () => {
   const { isOpen, slides, closeModal } = useModalStore();
   const [swiper, setSwiper] = useState<SwiperClass | null>(null);
   const [paginationEl, setPaginationEl] = useState<HTMLDivElement | null>(null);
-  console.log('slides 데이터:', slides);
+  // console.log('slides 데이터:', slides);
   // 모달이 열리면 스크롤 방지, 닫히면 해제
   useEffect(() => {
     if (isOpen) {
@@ -26,7 +26,8 @@ export const Modal = () => {
 
   // createPortal을 사용하여 body 직계자식으로 렌더링
   return createPortal(
-    <S.Overlay onClick={closeModal}>
+    // <S.Overlay onClick={closeModal}>
+    <S.Overlay>
       <S.ModalWrapper onClick={(e) => e.stopPropagation()}>
         <S.StyledSwiper
           slidesPerView={1}

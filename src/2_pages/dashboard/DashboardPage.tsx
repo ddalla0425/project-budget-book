@@ -1,16 +1,16 @@
 import { useOnboardingModal } from '@/3_widgets/onboardingModal';
-import { useGetAccount } from '@/5_entities/account';
+import { useGetDashboardQuery } from '@/5_entities/account';
 import { useUserStore } from '@/5_entities/user';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 export const DashboardPage = () => {
   const user = useUserStore((s) => s.user);
-
-  const { data, isLoading, isSuccess } = useGetAccount(user?.uid);
+  const { data, isSuccess, isLoading } = useGetDashboardQuery();
   const { openOnboarding } = useOnboardingModal();
+
   useEffect(() => {
-    const hasNoAccount = !data?.banks || data.banks.length === 0;
+    const hasNoAccount = !data?.raw.bank || data.raw.bank.length === 0;
     if (isSuccess && hasNoAccount) {
       openOnboarding();
     }
@@ -21,11 +21,18 @@ export const DashboardPage = () => {
   return (
     <>
       <h2>Dashboard</h2>
+      <p>환영합니다 {user?.displayName} 님</p>
       <div>
         <Link to={'/test'}>TEST</Link>
       </div>
       <div>
-        <Link to={'/account'}>Account</Link>
+        <Link to={'/account'}>Account Select</Link>
+      </div>
+      <div>
+        <Link to={'/account/create'}>Account Insert</Link>
+      </div>
+      <div>
+        <Link to={'/transaction'}>Transaction</Link>
       </div>
       <div>
         <Link to={'/mypage'}>Mypage</Link>

@@ -1,51 +1,87 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
 interface StyledGridProps {
   $gap: number;
-  $width: string;
+  // $width: string;
   $height: string;
   $align?: string;
   $autoCols?: boolean;
-  $direction: 'horizontal' | 'vertical';
+  $selectCols?: string;
+  $direction: "horizontal" | "vertical";
+  $hasBoxStyle: boolean;
 }
+
+/* 💡 1. 전체 넓이를 제어하고 설명 텍스트를 포함하는 Wrapper */
+export const GridWrapper = styled.div<{ $width: string }>`
+  width: ${({ $width }) => $width};
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Grid 콘텐츠와 Description 사이의 간격 */
+`;
 
 export const Grid = styled.div<StyledGridProps>`
   display: grid;
-  width: ${({ $width }) => $width};
+  width: 100%;
   gap: ${({ $gap }) => `${$gap}px`};
-  align-items: ${({ $align = 'stretch' }) => $align};
+  align-items: ${({ $align = "stretch" }) => $align};
 
-  /* 세로 등분 모드일 때 전달받은 height 적용 */
-  ${({ $direction, $height }) => 
-    $direction === 'vertical' && $height && css`
-      height: ${$height};
-    `
-  }
+  /* 방향 및 레이아웃 설정 */
+  ${({ $direction, $height, $autoCols, $selectCols }) => {
+    if ($direction === "vertical") {
+      return css`
+        height: ${$height};
+        grid-auto-flow: row;
+        ${$autoCols &&
+          css`
+            grid-auto-rows: 1fr;
+          `};
+      `;
+    }
 
-  /* $autoCols가 true면 자식들이 무조건 같은 비율로 한 줄에 배치됨 */
-  ${({ $autoCols, $direction }) =>
-    $autoCols &&
-    ($direction === 'horizontal'
-      ? css`
-          grid-auto-flow: column;   /* 가로로 나열 */
-          grid-auto-columns: 1fr;  /* 자식 수만큼 가로 등분 */
+    // 가로(horizontal) 모드일 때
+    return css`
+      /* 1순위: selectCols가 있으면 해당 그리드 템플릿 사용 */
+      ${$selectCols
+        ? css`
+          grid-template-columns: ${$selectCols};
         `
-      : css`
-          grid-auto-flow: row;      /* 세로로 나열 */
-          grid-auto-rows: 1fr;     /* 자식 수만큼 세로 등분 */
-        `)}
+        : $autoCols
+        ? css`
+          /* 2순위: autoCols가 true면 자식 수만큼 자동 등분 */
+          grid-auto-flow: column;
+          grid-auto-columns: 1fr;
+        `
+        : css`
+          /* 3순위: 둘 다 없으면 기본 1열 배치 */
+          grid-template-columns: 1fr;
+        `};
+    `;
+  }};
 
-  /* autoCols가 false일 때의 기본 동작 */
-  ${({ $autoCols }) => !$autoCols && css`
-    grid-template-columns: 1fr;
-  `}
+  /* 💡 Box 스타일 적용 여부 */
+  ${({ $hasBoxStyle }) =>
+    $hasBoxStyle &&
+    css`
+      padding: 20px;
+      background-color: #f8f9fa; /* 연한 배경색 */
+      border: 1px solid #e9ecef; /* 테두리 */
+      border-radius: 12px; /* 모서리 둥글게 */
+    `};
 
   /* 공통 반응형 설정 (태블릿/모바일) */
   @media (max-width: 768px) {
-    grid-auto-flow: row; /* 모바일에서는 자동으로 세로로 흐르게 변경 */
-    grid-template-columns: 1fr;
-    grid-auto-rows: auto; /* 모바일에서는 등분 해제하고 콘텐츠만큼 차지하게 */
-    height: auto !important; /* 모바일에서는 고정 높이 해제 */
-    width: 100% !important; /* 모바일은 웬만하면 꽉 차게 */
+    grid-auto-flow: row;
+    grid-template-columns: 1fr !important; /* 명시적 지정 해제 */
+    grid-auto-rows: auto;
+    height: auto !important;
+    width: 100% !important;
   }
+`;
+
+export const Message = styled.span`
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: var(--field-gap);
+  line-height: 1.4;
+  min-height: 1em; // 메시지가 생길 때 레이아웃이 덜컹거리는 것 방지
 `;

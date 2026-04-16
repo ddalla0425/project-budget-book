@@ -1,4 +1,4 @@
 // PUBLIC - shared/model
 
-export { useModalStore } from './useModalStore';
-export type { ModalConfig } from './useModalStore';
+export { useModalStore } from './modal.store';
+export type { ModalConfig } from './modal.store';

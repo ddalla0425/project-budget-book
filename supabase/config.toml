@@ -1,0 +1,22 @@
+
+[functions.sync-financial-data]
+enabled = true
+verify_jwt = true
+import_map = "./functions/sync-financial-data/deno.json"
+# Uncomment to specify a custom file path to the entrypoint.
+# Supported file extensions are: .ts, .js, .mjs, .jsx, .tsx
+entrypoint = "./functions/sync-financial-data/index.ts"
+# Specifies static files to be bundled with the function. Supports glob patterns.
+# For example, if you want to serve static HTML pages in your function:
+# static_files = [ "./functions/sync-financial-data/*.html" ]
+
+[functions.get-kis-price]
+enabled = true
+verify_jwt = true
+import_map = "./functions/get-kis-price/deno.json"
+# Uncomment to specify a custom file path to the entrypoint.
+# Supported file extensions are: .ts, .js, .mjs, .jsx, .tsx
+entrypoint = "./functions/get-kis-price/index.ts"
+# Specifies static files to be bundled with the function. Supports glob patterns.
+# For example, if you want to serve static HTML pages in your function:
+# static_files = [ "./functions/get-kis-price/*.html" ]
