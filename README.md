@@ -1,4 +1,5 @@
-## 💰 NA BUDGETBOOK (FSD 기반 Serverless 수동 가계부)
+## 💰 NA 혼자 쓴다 
+FSD 기반 Serverless 수동(Non-Auto) 가계부 서비스 
 
 ```
 🙏진행중인 프로젝트라 ReadMe 설명이 간략한 점 양해 부탁드립니다.
