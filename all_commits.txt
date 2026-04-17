@@ -1,0 +1,89 @@
+2026-04-15 | df850ec | docs: README.md 전면 개편 및 프로젝트 상세 정보 추가
+2026-04-14 | db0dc65 | chore(husky): Gemini 커밋 메시지 생성 스크립트 및 로깅 로직 개선
+2026-04-14 | 9f8b0de | chore: husky 커밋 메시지 자동 생성 스크립트의 에러 로깅 방식 개선 - 에러 메시지가 생성된 커밋 메시지에 혼입되지 않도록 표준 에러 출력을 분리함 - 디버깅을 위해 발생한 에러를 별도의 로그 파일에 기록하도록 수정함
+2026-04-14 | fffb522 | chore: .gitignore 로그 무시 규칙 수정 - 전역 로그 파일(*.log) 제외 설정을 삭제함 - husky_debug.log만 명시적으로 무시하도록 변경함
+2026-04-14 | ea07bbf | chore: husky prepare-commit-msg 훅 디버깅 및 안정성 개선 - 로그 파일 기록 기능을 추가하여 실행 과정 및 에러 내역 추적을 용이하게 함 - Gemini CLI 호출 시 에러 캡처 및 종료 코드 검증 로직을 강화하여 비정상 동작을 방지함 - 환경 변수 체크 및 예외 발생 시의 방어 코드를 보완하여 커밋 프로세스 단절을 최소화함
+2026-04-14 | f78d431 | chore: Husky 훅 로직 개선 및 불필요 파일 정리 - 스테이징된 변경사항 부재 시 메시지 생성을 건너뛰는 예외 처리를 추가함. - 불필요한 스크립트(.husky/pre-commit.sh) 및 테스트 파일을 삭제함. - 커밋 메시지 생성 안내 문구를 간결하게 변경함.
+2026-04-08 | 3f479f6 | chore: Husky 및 Gemini 기반 커밋 메시지 자동화 환경 구축
+2026-04-08 | 6de1ecc | feat: 가계부 거래 내역 조회 및 목록 페이지 구현
+2026-04-08 | c62e188 | refactor: 자산 등록 로직 위젯화 및 목록 UI 기능 강화
+2026-04-08 | 44a74f3 | style: 공통 레이아웃 컴포넌트 적용 및 헤더 구조 개선
+2026-04-08 | f925924 | feat: 자산 등록 기능 고도화 및 신규 자산 유형 지원
+2026-04-08 | abee84d | feat: 계좌 데이터 모델 고도화 및 매핑 로직 개선
+2026-04-08 | 11ca9ec | feat: 공용 API 훅, 유틸리티 및 UI 컴포넌트 기능 고도화
+2026-04-08 | dbcc77a | refactor: 라우터 구조 개편 및 Provider 통합
+2026-04-08 | 2c3a6b9 | refactor: 모달 스토어 파일명 변경 및 오버레이 클릭 종료 기능 제거
+2026-04-08 | f2576e9 | feat: 투자 자산 관리를 위한 국내외 주식 데이터셋 구축 및 변환 도구 추가
+2026-04-08 | a841d96 | feat: 한국투자증권(KIS) 주식 현재가 조회 엣지 펑션 추가 및 토큰 캐싱 로직 구현
+2026-03-26 | c360845 | rename: 파일명 수정
+2026-03-26 | 057da07 | update: 테이블 컬럼 과 check 제약 추가로 인한 타입 update
+2026-03-25 | 3a3f9cd | update: accounts 일괄저장 로직 수정 적용 및 일괄저장 후  캐시 무효화 적용
+2026-03-25 | a5cdf21 | style: 화면 스크롤 제거
+2026-03-25 | cc29b74 | feat: 카드사별 이용기간 내역 조회 로직 추가
+2026-03-25 | b4db801 | style: Alert 안의 메세지를 태그 안으로 넣을 수도 있게 수정
+2026-03-25 | cc403ce | style: Button 에 스타일 타입 추가 (추후 타입별 스타일 줄 예정)
+2026-03-25 | 962042b | style: label 안에 입력 필드가 없을경우 span으로 받을 labelTag 추가
+2026-03-25 | 5477814 | style: Input  타입 number 일때 스크롤 방지 추가 및  타입별 스타일 적용/ Select 화살표 여백 수정
+2026-03-25 | 8e41196 | style: Grid 컴포넌트 수동 정렬 추가
+2026-03-25 | e677244 | feat: 공용사용할 탭 컴포넌트 및 스타일 추가
+2026-03-18 | be655b3 | feat: 앱단에서 금융기관 테이블 조회후 스토어 저장로직 추가
+2026-03-18 | 577892e | move: 라우팅 경로 수정
+2026-03-18 | 1bc9c4a | feat: 자산 등록 페이지 AccountCreatePage.tsx 생성 및 - DashboardPage.tsx 수정. - 자산등록페이지를 위한 accountiInitialValues.ts 상수 생성 및 - 자산 number 필드를 위한 공용 utils.ts 함수 생성과 - 그를 위한 accountStricNullFields.ts 생성. -> 이후 컬럼별 필드 valueAsNumber 로 변경예정
+2026-03-18 | 0d8f70d | style: 온보딩모달 스타일과 문구 수정
+2026-03-18 | 260258c | update: 공용 인풋 숫자타입 일 때, 클릭시 이벤트 추가
+2026-03-18 | 39eab70 | feat: account 조회 페이지 AccountListPage 생성 및, 페이지에서 사용하기 위한 AccountList.tsx 위젯과, AccountTotal.tsx 엔티티 생성
+2026-03-18 | 15464ca | feat: accounts 테이블 조회용 로직용 매핑용 유틸 함수 생성
+2026-03-18 | 012189a | update: FSD 철학에 맞춰 features 로 이동 및, 레이어단 구분으로 인한 파일 나누기 및 생성 및 수정. - entities/account/api/account.api.ts -> 조회 로직만 남기고 등록 로직은 features/account-registration/api로 이동 및 파일명 변경 및 통일 api.ts - entities/account/model/useAccountQuery.ts -> 조회 로직만 남기고 등록 로직은 features/account-registration/api로 이동 및 파일명 변경 및 통일 useQuery.ts - entities/account/model/accountStore.ts -> 파일명 변경 후 eatures/account-registration/model 로 이동 form.store.ts (추후 queue.store.ts 분리 할 예정) - entities/account/model/ui/AccountQueueActions.tsx -> 기능 분리를 위한 수정 및 features/account-registration/ui에 기능용 컴포넌트 생성 EditableAccountItem.tsx - 기능용 상수 FSD 철학에 맞게 features/account-registration/constants 로 이동
+2026-03-18 | ec8cd40 | move: accounts 테이블 타입별 필드 나눔. FSD 철학에 맞춰 features 로 이동
+2026-03-18 | 517933e | feat: accounts 테이블 관련 저장용, 조회용, 함수결과 반환용 타입 지정
+2026-03-18 | f954f4d | move: FSD 구조에 맞춰 이동
+2026-03-18 | 2b20e9f | feat: 공용 함수 추가 및 수정
+2026-03-18 | 64e4f80 | style: 프리티어 적용 및 주석 수정 및 타입에러 수정 및 엣지펑션
+2026-03-18 | 63a61dc | feat: 공용 Table, Step, Pagination 컴포넌트 생성
+2026-03-18 | ab28fd7 | feat: 금융기관 테이블 생성 및 자산 테이블과 연결 과정 - supabase EdgeFunction 사용을 위한 의존성 주입 및 deno 확장설치 - 금융기관 테이블 financial_institutions 테이블에 내용 주입 - supabase 테이블 타입 업데이트 및 기존 자산 타입 수정 및 추가 - financial_institutions 용 RPC 함수 작성 및  entities 레이어 안의 institution 슬라이스 생성 (조회를 위한 sotre,api,query,type 작성및 index 캡슐화)
+2026-03-04 | dc1ee59 | add: 로그인한 유저의 자산 타입별  데이터 구분 조회 테스트 페이지
+2026-03-04 | 8954b10 | add: 유저 회원가입과 로그인 로그아웃을 위한 테스트 위젯
+2026-03-04 | d6397b2 | add: 일단 테마 설정 구조만 추가. (후 순위)
+2026-03-04 | f5ed439 | add: 대쉬보드 페이지 뼈대만 추가  및 라우터 수정
+2026-03-04 | 7a64a34 | feat: 자산 등록 , 자산 조회 페이지 생성 및 캡슐화
+2026-03-04 | 42a59c6 | update: accounts 테이블 컬럼 생성으로 인한 타입 구조 추가
+2026-03-04 | 495de18 | add: onboardingModal 위젯 캡슐화 파일 추가
+2026-03-04 | 76f20d9 | add: 모달 스토어 주석 경로 수정
+2026-03-04 | 907565f | add: swiper 모달에 적용하기 위해 설치
+2026-03-04 | 13cc8f7 | feat: 공용 Modal 컴포넌트와 useOnboardingModal 훅 구현 및  모달 스토어 작성 /스타일 적용 및 캡슐화 적용 하여 전역 설정
+2026-03-04 | 3cefa92 | add: 공용으로 쓸 상수 타입 파일 추가 및 캡슐화
+2026-03-04 | e55dee2 | feat: accounts 등록을 위한 (선택 입력 창, 대기창)  컴포넌트 생성 및 공용 필드 생성 및 스타일 적용
+2026-03-04 | bf56793 | feat: account 테이블 조회,저장 API 요청 로직  [유저id로  자산목록 조회, 자산 일괄 저장 ] 및 자산 스토어 작성
+2026-03-04 | c7ceec5 | style: 주석 경로수정
+2026-03-04 | 40d5604 | feat: 공용 Alert 컴포넌트 구현 및 스타일 적용 및 캡슐화 적용
+2026-03-04 | 345062e | feat: 공용 Grid 컴포넌트 구현 및 스타일 적용 및 캡슐화 적용
+2026-03-04 | e006f85 | feat: 공용 Field 컴포넌트 구현 및 스타일 적용 및 캡슐화 적용
+2026-03-04 | 0fd6796 | feat: 공용 Input 컴포넌트 구현 및 스타일 적용 및 캡슐화 적용
+2026-03-04 | b61e342 | feat: 공용 Select 컴포넌트 구현 및 스타일 적용 및 캡슐화 적용
+2026-03-04 | a4568a2 | style: prettierrc 설정 추가 및 적용
+2026-02-28 | 85f23b1 | style: 공용 글로벌 스타일 작성
+2026-02-28 | 6f6e954 | update: FSD 철학을 위한 index.ts (외부 연결용) 적용으로 인해. 외부 연결시 사용 경로 수정 및 각 슬라이스 별 내부 파일 상대경로 참조로 수정
+2026-02-28 | 8457073 | feat: 공용으로 사용할 filter, date, calculate 함수 작성 및 패치키 설치
+2026-02-28 | b688c9b | feat: AppRouter 설정 및 적용 - 라우터 연결을 위한 페이지 생성
+2026-02-28 | b3c6542 | add: 공용 Button 컴포넌트 작성 및 스타일 적용
+2026-02-28 | 2298117 | add: 헤더위젯 작성 및 스타일 적용
+2026-02-28 | d893185 | add: 슬라이스 외부 참조 관련 FSD 철학 적용. - app, shared 레이어스 제외한 모든 레이어스에 모든 슬라이스 별 index.ts 파일 생성 및  외부 노출 추가 - app, shard 레이어스는 각각의 세그먼트 폴더별 index.ts 파일 생성 및 외부 노출 추가
+2026-02-28 | 9157bf4 | move: FSD 구조에 맞춰 파일 이동
+2026-02-28 | 74868f9 | remove: delete file
+2026-02-28 | ae70a27 | remove: delete files for can't be use
+2026-02-27 | 304f8a5 | feat: add test page and widgets for auth flow verification
+2026-02-27 | 1c1f967 | refactor: migrate auth logic to user entity and implement user data sync
+2026-02-27 | 5d99801 | update: move file and rename and add clearUser state
+2026-02-25 | c802ff2 | feat: initialize supabaseClient with firebase auth integration
+2026-02-25 | 74ebe0a | feat: add database types generated by supabase cli
+2026-02-25 | 9b90952 | feat: setup axios
+2026-02-25 | ff1d1a0 | feat: implement AuthProvider for firebase authentication
+2026-02-25 | 10a9dc3 | move: Moved folders for correct FSD structure
+2026-02-24 | ec838fa | feat: implement auth logic(login, logout) with FSD structure and sync auth state via AuthProvider. and using FSD public API
+2026-02-24 | 9a57859 | add: initialize auth store using zustand
+2026-02-24 | 39842d2 | add: shared token provider
+2026-02-24 | bc86608 | remove: delete file
+2026-02-24 | e06ca38 | add: initialize React Query client with default options and version upgrade
+2026-02-24 | e34b4f8 | style: apply prettier formatting
+2026-02-24 | 97b7f27 | add: firebase configuration and initialization
+2026-02-24 | 0c94d3c | chore: initial project setup
